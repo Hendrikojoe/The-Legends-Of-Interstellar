@@ -3,32 +3,22 @@ extends CharacterBody2D
 
 @export var speed: float = 200.0
 
-@export var gravity: float = 980.0
-
 @onready var sprite = $AnimatedSprite2D
-
 
 func _physics_process(delta):
 
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	else:
-		velocity.y = 0
+	# Mengambil input gerakan horizontal dan vertikal
+	var direction_x = Input.get_axis("move_left", "move_right")
+	var direction_y = Input.get_axis("move_up", "move_down")
 
+	# Mengatur gerakan melayang
+	velocity.x = direction_x * speed
+	velocity.y = direction_y * speed
 
-	var direction = Input.get_axis(
-		"move_left",
-        "move_right"
-	)
-
-	velocity.x = direction * speed
-
-
-	if direction < 0:
+	# Mengatur arah sprite
+	if direction_x < 0:
 		sprite.flip_h = true
-
-	elif direction > 0:
+	elif direction_x > 0:
 		sprite.flip_h = false
-
 
 	move_and_slide()

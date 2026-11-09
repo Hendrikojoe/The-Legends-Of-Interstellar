@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://cba0ljvfok3g1"]
 
 [ext_resource type="PackedScene" uid="uid://m6d2088oha1a" path="res://Scenes/player/Player.tscn" id="1_negum"]
+[ext_resource type="Texture2D" uid="uid://bv51ftuml2v7t" path="res://Scripts/images/background/1.png" id="1_wc185"]
 
 [node name="level design" type="Node2D" unique_id=885475793]
+
+[node name="background" type="Sprite2D" parent="." unique_id=2097624911]
+position = Vector2(576.49994, 325.5)
+scale = Vector2(0.60052085, 0.6027778)
+texture = ExtResource("1_wc185")
 
 [node name="Player" parent="." unique_id=1786839406 instance=ExtResource("1_negum")]

@@ -2,16 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cce108ej0bb8f"
-path="res://.godot/imported/happy.png-228369519db07281355f96b4b691234e.ctex"
-metadata={
-"vram_texture": false
-}
+uid="uid://x2iupgb1c4vu"
+valid=false
 
 [deps]
 
-source_file="res://happy.png"
-dest_files=["res://.godot/imported/happy.png-228369519db07281355f96b4b691234e.ctex"]
+source_file="res://Scripts/PNG CHARACTER/MONSTER/hanpi hanpi/hanpi skil 3.webp"
 
 [params]
 
