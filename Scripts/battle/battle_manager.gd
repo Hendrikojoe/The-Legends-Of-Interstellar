@@ -2,13 +2,9 @@ extends Control
 
 signal battle_ended(player_won: bool)
 
-enum State { PLAYER_TURN, ENEMY_TURN, WON, LOST }
+enum State { PLAYER_TURN, ACTION_RESOLVING, ENEMY_TURN, WON, LOST }
 
-const STARTING_HAND := 5
-const DRAW_PER_TURN := 1
-const MAX_HAND := 7
-const MAX_ENERGY := 3
-const STARTING_ENERGY := 3
+const HAND_SIZE := 4
 
 var state: State = State.PLAYER_TURN
 var turn_count: int = 1
@@ -16,7 +12,6 @@ var turn_count: int = 1
 var player_hp: int = 30
 var player_max_hp: int = 30
 var player_block: int = 0
-var player_energy: int = 0
 
 var enemy_hp: int = 40
 var enemy_max_hp: int = 40
@@ -29,6 +24,9 @@ var hand: Array = []
 var discard: Array = []
 var rng := RandomNumberGenerator.new()
 
+var alto_initial_pos: Vector2
+var slimy_initial_pos: Vector2
+
 @onready var enemy_name_label: Label = %EnemyName
 @onready var enemy_hp_bar: ProgressBar = %EnemyHPBar
 @onready var enemy_hp_label: Label = %EnemyHPLabel
@@ -38,12 +36,10 @@ var rng := RandomNumberGenerator.new()
 @onready var player_hp_bar: ProgressBar = %PlayerHPBar
 @onready var player_hp_label: Label = %PlayerHPLabel
 @onready var player_block_label: Label = %PlayerBlock
-@onready var energy_label: Label = %EnergyLabel
 
 @onready var turn_label: Label = %TurnLabel
 @onready var log_label: RichTextLabel = %LogLabel
 @onready var hand_container: HBoxContainer = %HandContainer
-@onready var end_turn_button: Button = %EndTurnButton
 @onready var deck_label: Label = %DeckLabel
 @onready var discard_label: Label = %DiscardLabel
 
@@ -55,6 +51,7 @@ var rng := RandomNumberGenerator.new()
 @onready var destroy_button: Button = %DestroyButton
 @onready var forgive_button: Button = %ForgiveButton
 @onready var alto: CharacterBody2D = $Stage/Alto
+@onready var slimy: Node2D = $Stage/Slimy
 
 
 func _ready() -> void:
@@ -63,12 +60,15 @@ func _ready() -> void:
 	alto.auto_direction = 0.0
 	alto.velocity = Vector2.ZERO
 	alto.set_physics_process(false)
+	alto_initial_pos = alto.position
+	slimy_initial_pos = slimy.position
 	rng.randomize()
-	end_turn_button.pressed.connect(_on_end_turn_pressed)
+
 	restart_button.pressed.connect(_on_restart_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
 	destroy_button.pressed.connect(_on_destroy_pressed)
 	forgive_button.pressed.connect(_on_forgive_pressed)
+
 	start_battle()
 
 
@@ -77,9 +77,13 @@ func start_battle() -> void:
 	turn_count = 1
 	player_hp = player_max_hp
 	player_block = 0
-	player_energy = 0
 	enemy_hp = enemy_max_hp
 	enemy_block = 0
+	alto.position = alto_initial_pos
+	alto.modulate = Color.WHITE
+	slimy.position = slimy_initial_pos
+	slimy.modulate = Color.WHITE
+
 	deck = _build_deck()
 	deck.shuffle()
 	hand.clear()
@@ -87,25 +91,26 @@ func start_battle() -> void:
 	log_label.clear()
 	overlay.hide()
 	choice_container.hide()
+
 	_log("[b]Battle dimulai![/b] Melawan %s." % enemy_name)
-	_draw_cards(STARTING_HAND)
 	_begin_player_turn(true)
-	_refresh_ui()
 
 
 func _build_deck() -> Array:
 	var cards: Array = []
 	var defs := [
-		{"id": "strike", "name": "Strike", "cost": 1, "type": "attack", "value": 6, "desc": "Deal 6 damage"},
-		{"id": "strike", "name": "Strike", "cost": 1, "type": "attack", "value": 6, "desc": "Deal 6 damage"},
-		{"id": "strike", "name": "Strike", "cost": 1, "type": "attack", "value": 6, "desc": "Deal 6 damage"},
-		{"id": "strike", "name": "Strike", "cost": 1, "type": "attack", "value": 6, "desc": "Deal 6 damage"},
-		{"id": "heavy", "name": "Heavy Blow", "cost": 2, "type": "attack", "value": 12, "desc": "Deal 12 damage"},
-		{"id": "heavy", "name": "Heavy Blow", "cost": 2, "type": "attack", "value": 12, "desc": "Deal 12 damage"},
-		{"id": "guard", "name": "Guard", "cost": 1, "type": "block", "value": 5, "desc": "Gain 5 block"},
-		{"id": "guard", "name": "Guard", "cost": 1, "type": "block", "value": 5, "desc": "Gain 5 block"},
-		{"id": "guard", "name": "Guard", "cost": 1, "type": "block", "value": 5, "desc": "Gain 5 block"},
-		{"id": "bash", "name": "Bash", "cost": 2, "type": "attack", "value": 8, "desc": "Deal 8 damage"},
+		{"id": "strike", "name": "Strike", "type": "attack", "value": 6, "desc": "Serangan Biasa\n(6 Damage)"},
+		{"id": "strike", "name": "Strike", "type": "attack", "value": 6, "desc": "Serangan Biasa\n(6 Damage)"},
+		{"id": "strike", "name": "Strike", "type": "attack", "value": 6, "desc": "Serangan Biasa\n(6 Damage)"},
+		{"id": "strike", "name": "Strike", "type": "attack", "value": 6, "desc": "Serangan Biasa\n(6 Damage)"},
+		{"id": "heavy", "name": "Heavy Blow", "type": "attack", "value": 12, "desc": "Serangan Kuat\n(12 Damage)"},
+		{"id": "heavy", "name": "Heavy Blow", "type": "attack", "value": 12, "desc": "Serangan Kuat\n(12 Damage)"},
+		{"id": "guard", "name": "Guard", "type": "block", "value": 7, "desc": "Bertahan\n(+7 Block)"},
+		{"id": "guard", "name": "Guard", "type": "block", "value": 7, "desc": "Bertahan\n(+7 Block)"},
+		{"id": "guard", "name": "Guard", "type": "block", "value": 7, "desc": "Bertahan\n(+7 Block)"},
+		{"id": "bash", "name": "Bash", "type": "attack", "value": 9, "desc": "Hantaman\n(9 Damage)"},
+		{"id": "bash", "name": "Bash", "type": "attack", "value": 9, "desc": "Hantaman\n(9 Damage)"},
+		{"id": "heal", "name": "Heal", "type": "heal", "value": 6, "desc": "Pemulihan\n(+6 HP)"},
 	]
 	for i in defs.size():
 		var c: Dictionary = defs[i].duplicate()
@@ -114,11 +119,8 @@ func _build_deck() -> Array:
 	return cards
 
 
-func _draw_cards(amount: int) -> void:
-	for i in amount:
-		if hand.size() >= MAX_HAND:
-			_log("Hand penuh.")
-			break
+func _draw_cards_until(target_count: int) -> void:
+	while hand.size() < target_count:
 		if deck.is_empty():
 			if discard.is_empty():
 				break
@@ -133,55 +135,90 @@ func _draw_cards(amount: int) -> void:
 func _begin_player_turn(first_turn: bool) -> void:
 	state = State.PLAYER_TURN
 	player_block = 0
-	player_energy = STARTING_ENERGY
 	if not first_turn:
 		turn_count += 1
-		_draw_cards(DRAW_PER_TURN)
-		_log("[color=yellow]— Giliran Pemain (Turn %d) —[/color]" % turn_count)
-	else:
-		_log("[color=yellow]— Giliran Pemain (Turn %d) —[/color]" % turn_count)
+	_log("[color=yellow]— Giliran Pemain (Turn %d) —[/color]" % turn_count)
+
+	_draw_cards_until(HAND_SIZE)
 	enemy_intent = _choose_enemy_intent()
 	_log("Intent musuh: %s" % _intent_text(enemy_intent))
-	end_turn_button.disabled = false
+
 	_refresh_ui()
+	_set_hand_buttons_disabled(false)
 
 
-func _on_end_turn_pressed() -> void:
+func _on_card_pressed(index: int) -> void:
 	if state != State.PLAYER_TURN:
 		return
-	end_turn_button.disabled = true
-	_discard_hand()
-	_begin_enemy_turn()
+	if index < 0 or index >= hand.size():
+		return
 
+	# Kunci input kartu saat aksi sedang diselesaikan
+	state = State.ACTION_RESOLVING
+	_set_hand_buttons_disabled(true)
 
-func _discard_hand() -> void:
-	for c in hand:
-		discard.append(c)
-	hand.clear()
+	var card: Dictionary = hand[index]
+	hand.remove_at(index)
+	discard.append(card)
 	_rebuild_hand_ui()
+	_set_hand_buttons_disabled(true)
+
+	await _resolve_player_card(card)
+	_refresh_ui()
+
+	if _check_end():
+		return
+
+	# Jeda sejenak sebelum musuh otomatis membalas menyerang
+	await get_tree().create_timer(0.5).timeout
+	if state != State.ACTION_RESOLVING:
+		return
+
+	await _begin_enemy_turn()
+
+
+func _resolve_player_card(card: Dictionary) -> void:
+	if card.type == "attack":
+		await _animate_player_attack()
+		var dealt := _damage_enemy(int(card.value))
+		_log("Kamu memakai [b]%s[/b]: %d damage ke musuh." % [card.name, dealt])
+	elif card.type == "block":
+		await _animate_player_buff(Color(0.4, 0.8, 1.0))
+		player_block += int(card.value)
+		_log("Kamu memakai [b]%s[/b]: +%d block." % [card.name, card.value])
+	elif card.type == "heal":
+		await _animate_player_buff(Color(0.4, 1.0, 0.5))
+		var healed: int = mini(int(card.value), player_max_hp - player_hp)
+		player_hp = mini(player_hp + int(card.value), player_max_hp)
+		_log("Kamu memakai [b]%s[/b]: memulihkan %d HP." % [card.name, healed])
 
 
 func _begin_enemy_turn() -> void:
 	state = State.ENEMY_TURN
 	enemy_block = 0
-	_log("[color=orange]— Giliran Musuh —[/color]")
 	_refresh_ui()
-	await get_tree().create_timer(0.6).timeout
-	_execute_enemy_intent()
+	_log("[color=orange]— Musuh Menyerang! —[/color]")
+
+	await get_tree().create_timer(0.3).timeout
+	await _execute_enemy_intent()
+	_refresh_ui()
+
 	if _check_end():
 		return
-	await get_tree().create_timer(0.4).timeout
+
+	# Jeda sebelum kembali ke giliran pemain
+	await get_tree().create_timer(0.5).timeout
 	_begin_player_turn(false)
 
 
 func _choose_enemy_intent() -> Dictionary:
 	var roll := rng.randi_range(1, 100)
-	if roll <= 45:
+	if roll <= 50:
 		return {"type": "attack", "name": "Normal Attack", "value": rng.randi_range(5, 7)}
-	elif roll <= 75:
-		return {"type": "attack", "name": "Heavy Attack", "value": rng.randi_range(10, 14)}
+	elif roll <= 80:
+		return {"type": "attack", "name": "Heavy Attack", "value": rng.randi_range(9, 13)}
 	else:
-		return {"type": "defend", "name": "Defensive Turn", "value": rng.randi_range(6, 10)}
+		return {"type": "defend", "name": "Defensive Stance", "value": rng.randi_range(5, 8)}
 
 
 func _intent_text(intent: Dictionary) -> String:
@@ -196,13 +233,14 @@ func _execute_enemy_intent() -> void:
 	if enemy_intent.is_empty():
 		return
 	if enemy_intent.type == "attack":
+		await _animate_enemy_attack()
 		var dmg: int = enemy_intent.value
 		var dealt := _damage_player(dmg)
 		_log("%s menyerang! %d damage (diterima %d)." % [enemy_name, dmg, dealt])
 	elif enemy_intent.type == "defend":
+		await _animate_enemy_buff(Color(0.4, 0.8, 1.0))
 		enemy_block += int(enemy_intent.value)
-		_log("%s bertahan dan mendapat %d block." % [enemy_name, enemy_intent.value])
-	_refresh_ui()
+		_log("%s bersiap bertahan dan mendapat %d block." % [enemy_name, enemy_intent.value])
 
 
 func _rebuild_hand_ui() -> void:
@@ -211,51 +249,57 @@ func _rebuild_hand_ui() -> void:
 	for i in hand.size():
 		var card: Dictionary = hand[i]
 		var btn := Button.new()
-		btn.custom_minimum_size = Vector2(150, 200)
+		btn.custom_minimum_size = Vector2(150, 180)
 		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		btn.text = "%s\n[%d Energy]\n\n%s" % [card.name, card.cost, card.desc]
+		btn.text = "%s\n\n%s" % [card.name, card.desc]
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		btn.disabled = (state != State.PLAYER_TURN)
 		btn.pressed.connect(_on_card_pressed.bind(i))
 		hand_container.add_child(btn)
-	_update_hand_affordability()
 
 
-func _update_hand_affordability() -> void:
-	var buttons := hand_container.get_children()
-	for i in buttons.size():
-		if i >= hand.size():
-			break
-		var btn := buttons[i] as Button
-		var can_play: bool = state == State.PLAYER_TURN and player_energy >= int(hand[i].cost)
-		btn.disabled = not can_play
+func _set_hand_buttons_disabled(disabled: bool) -> void:
+	for child in hand_container.get_children():
+		if child is Button:
+			child.disabled = disabled
 
 
-func _on_card_pressed(index: int) -> void:
-	if state != State.PLAYER_TURN:
-		return
-	if index < 0 or index >= hand.size():
-		return
-	var card: Dictionary = hand[index]
-	var cost: int = int(card.cost)
-	if player_energy < cost:
-		_log("Energy tidak cukup.")
-		return
-	player_energy -= cost
-	hand.remove_at(index)
-	_resolve_card(card)
-	discard.append(card)
-	_rebuild_hand_ui()
-	_refresh_ui()
-	_check_end()
+func _animate_player_attack() -> void:
+	var tw := create_tween()
+	tw.tween_property(alto, "position:x", alto_initial_pos.x + 60.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(alto, "position:x", alto_initial_pos.x, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+	var hit_tw := create_tween()
+	hit_tw.tween_interval(0.1)
+	hit_tw.tween_property(slimy, "modulate", Color(1.0, 0.3, 0.3), 0.08)
+	hit_tw.tween_property(slimy, "modulate", Color.WHITE, 0.12)
+	await tw.finished
 
 
-func _resolve_card(card: Dictionary) -> void:
-	if card.type == "attack":
-		var dealt := _damage_enemy(int(card.value))
-		_log("Kamu memakai [b]%s[/b]: %d damage ke musuh." % [card.name, dealt])
-	elif card.type == "block":
-		player_block += int(card.value)
-		_log("Kamu memakai [b]%s[/b]: +%d block." % [card.name, card.value])
+func _animate_player_buff(color: Color) -> void:
+	var tw := create_tween()
+	tw.tween_property(alto, "modulate", color, 0.15)
+	tw.tween_property(alto, "modulate", Color.WHITE, 0.2)
+	await tw.finished
+
+
+func _animate_enemy_attack() -> void:
+	var tw := create_tween()
+	tw.tween_property(slimy, "position:x", slimy_initial_pos.x - 60.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(slimy, "position:x", slimy_initial_pos.x, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+	var hit_tw := create_tween()
+	hit_tw.tween_interval(0.1)
+	hit_tw.tween_property(alto, "modulate", Color(1.0, 0.3, 0.3), 0.08)
+	hit_tw.tween_property(alto, "modulate", Color.WHITE, 0.12)
+	await tw.finished
+
+
+func _animate_enemy_buff(color: Color) -> void:
+	var tw := create_tween()
+	tw.tween_property(slimy, "modulate", color, 0.15)
+	tw.tween_property(slimy, "modulate", Color.WHITE, 0.2)
+	await tw.finished
 
 
 func _damage_enemy(amount: int) -> int:
@@ -283,7 +327,7 @@ func _damage_player(amount: int) -> int:
 func _check_end() -> bool:
 	if enemy_hp <= 0:
 		state = State.WON
-		end_turn_button.disabled = true
+		_set_hand_buttons_disabled(true)
 		_log("[b][color=green]Kamu menang![/color][/b]")
 		_show_result(true)
 		result_label.text = "SLIMY KALAH"
@@ -292,7 +336,7 @@ func _check_end() -> bool:
 		return true
 	if player_hp <= 0:
 		state = State.LOST
-		end_turn_button.disabled = true
+		_set_hand_buttons_disabled(true)
 		_log("[b][color=red]Kamu kalah...[/color][/b]")
 		_show_result(false)
 		battle_ended.emit(false)
@@ -319,12 +363,19 @@ func _refresh_ui() -> void:
 	player_hp_bar.value = player_hp
 	player_hp_label.text = "HP %d/%d" % [player_hp, player_max_hp]
 	player_block_label.text = "Block: %d" % player_block if player_block > 0 else ""
-	energy_label.text = "Energy: %d/%d" % [player_energy, MAX_ENERGY]
 
 	deck_label.text = "Deck: %d" % deck.size()
 	discard_label.text = "Discard: %d" % discard.size()
-	turn_label.text = "Turn %d — %s" % [turn_count, "Player" if state == State.PLAYER_TURN else ("Enemy" if state == State.ENEMY_TURN else "End")]
-	_update_hand_affordability()
+
+	var turn_status := "Giliran Alto"
+	if state == State.ENEMY_TURN:
+		turn_status = "Giliran Slimy"
+	elif state == State.ACTION_RESOLVING:
+		turn_status = "Menyerang..."
+	elif state == State.WON or state == State.LOST:
+		turn_status = "Selesai"
+
+	turn_label.text = "Turn %d — %s" % [turn_count, turn_status]
 
 
 func _log(msg: String) -> void:

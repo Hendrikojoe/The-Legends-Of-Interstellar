@@ -128,12 +128,6 @@ text = "HP 30/30"
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="EnergyLabel" type="Label" parent="HUD/Layout/Footer" unique_id=1365446204]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Energy: 3/3"
-
 [node name="DeckLabel" type="Label" parent="HUD/Layout/Footer" unique_id=1289364388]
 unique_name_in_owner = true
 layout_mode = 2
@@ -150,12 +144,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Turn 1"
 horizontal_alignment = 2
-
-[node name="EndTurnButton" type="Button" parent="HUD/Layout/Footer" unique_id=2016809796]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(130, 40)
-layout_mode = 2
-text = "Akhiri Giliran"
 
 [node name="Overlay" type="ColorRect" parent="HUD" unique_id=431296949]
 unique_name_in_owner = true
