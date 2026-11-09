@@ -30,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_menu")
 script = ExtResource("1_menu")
-play_scene = "res://Scenes/prolog.tscn"
+play_scene = "uid://cba0ljvfok3g1"
 
 [node name="Background" type="TextureRect" parent="." unique_id=261895627]
 layout_mode = 1
