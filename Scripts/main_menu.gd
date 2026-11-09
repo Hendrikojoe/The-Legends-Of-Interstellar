@@ -1,6 +1,6 @@
 extends Control
 
-@export_file("*.tscn") var play_scene: String = ""
+@export_file("*.tscn") var prolog_scene: String = "res://prolog.tscn"
 @export_file("*.tscn") var deck_scene: String = ""
 @export_file("*.tscn") var settings_scene: String = ""
 
@@ -15,11 +15,12 @@ func _ready() -> void:
 	deck_button.pressed.connect(_on_deck_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+
 	play_button.grab_focus()
 
 
 func _on_play_pressed() -> void:
-	_go_to_scene(play_scene, "Play")
+	_go_to_scene("res://Scenes/prolog.tscn", "Prolog")
 
 
 func _on_deck_pressed() -> void:
@@ -38,4 +39,5 @@ func _go_to_scene(path: String, button_name: String) -> void:
 	if path.is_empty():
 		print("[MainMenu] Scene untuk tombol '%s' belum diisi." % button_name)
 		return
+
 	get_tree().change_scene_to_file(path)

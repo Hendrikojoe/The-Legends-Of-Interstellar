@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://m6d2088oha1a"]
+
+[ext_resource type="Script" uid="uid://cery0rfgx1mlc" path="res://Scenes/player.gd" id="1_kne1u"]
+[ext_resource type="Texture2D" uid="uid://cce108ej0bb8f" path="res://happy.png" id="2_e80uo"]
+[ext_resource type="Texture2D" uid="uid://2lx7xspngt4l" path="res://icon.svg" id="3_cxr5p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wmgko"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e80uo")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eio2p"]
+size = Vector2(656.08954, 900.0001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1wua"]
+size = Vector2(15.936485, 24.040443)
+
+[node name="Node2D" type="Node2D" unique_id=1786839406]
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=1810400556]
+position = Vector2(137, 148.99998)
+scale = Vector2(0.3074074, 0.3)
+script = ExtResource("1_kne1u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player" unique_id=1539837203]
+position = Vector2(4.9999847, -33.5)
+scale = Vector2(0.3074074, 0.3)
+sprite_frames = SubResource("SpriteFrames_wmgko")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=1193893791]
+position = Vector2(0, 5.000061)
+scale = Vector2(0.30740738, 0.29999992)
+shape = SubResource("RectangleShape2D_eio2p")
+
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=1690375880]
+position = Vector2(3.253006, -19.999939)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1667278111]
+position = Vector2(253, 521)
+scale = Vector2(-20.580553, 5.8928857)
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D" unique_id=549298198]
+position = Vector2(-11.418545, 6.1090617)
+scale = Vector2(0.36496353, 0.36496353)
+texture = ExtResource("3_cxr5p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2125308845]
+position = Vector2(-11.758674, 6.448451)
+scale = Vector2(2.9542458, 1.9235369)
+shape = SubResource("RectangleShape2D_l1wua")
