@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://m6d2088oha1a"]
 
 [ext_resource type="Script" uid="uid://cery0rfgx1mlc" path="res://Scripts/player.gd" id="1_kne1u"]
-[ext_resource type="Texture2D" uid="uid://yge5u7dss8kn" path="res://Scripts/images/PNG CHARACTER/ALTO/FORM 2/happy.png" id="2_jnk8a"]
+[ext_resource type="Texture2D" uid="uid://yge5u7dss8kn" path="res://Assets/PNG CHARACTER/ALTO/FORM 2/happy.png" id="2_jnk8a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wmgko"]
 animations = [{
@@ -20,7 +20,7 @@ size = Vector2(656.08954, 1155.5557)
 [node name="Node2D" type="Node2D" unique_id=1786839406]
 
 [node name="player" type="CharacterBody2D" parent="." unique_id=1810400556]
-position = Vector2(137, 148.99998)
+position = Vector2(573, 316.00003)
 scale = Vector2(0.3074074, 0.3)
 script = ExtResource("1_kne1u")
 
