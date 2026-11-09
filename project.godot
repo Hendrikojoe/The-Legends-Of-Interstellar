@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="the-legends-of-interstellar"
+run/main_scene="uid://dgly5igd7spk5"
 config/features=PackedStringArray("4.8", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://Scripts/game_state.gd"
 
 [display]
 
