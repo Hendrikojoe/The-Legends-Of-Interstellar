@@ -354,6 +354,5 @@ func _on_forgive_pressed() -> void:
 func _continue_after_battle() -> void:
 	choice_container.hide()
 	result_label.text = "Alto melanjutkan perjalanan..."
-	# Bab selanjutnya belum tersedia; kembalikan pemain ke Chapter 1 setelah pilihan disimpan.
 	await get_tree().create_timer(1.2).timeout
-	get_tree().change_scene_to_file("res://Scenes/chapter_1.tscn")
+	get_tree().change_scene_to_file("res://Scenes/chapter_2.tscn")

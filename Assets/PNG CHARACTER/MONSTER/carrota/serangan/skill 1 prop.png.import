@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfhbsutv5q7lj"
-path="res://.godot/imported/skill 1 prop.png-ff600f67bffbb6937ec2de0204670ef0.ctex"
+path="res://.godot/imported/skill 1 prop.png-1ea69c6a9def1a1c36149374f0f11cff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/PNG CHARACTER/MONSTER/SLIMY/serangan/skill 1 prop.png"
-dest_files=["res://.godot/imported/skill 1 prop.png-ff600f67bffbb6937ec2de0204670ef0.ctex"]
+source_file="res://Assets/PNG CHARACTER/MONSTER/carrota/serangan/skill 1 prop.png"
+dest_files=["res://.godot/imported/skill 1 prop.png-1ea69c6a9def1a1c36149374f0f11cff.ctex"]
 
 [params]
 
