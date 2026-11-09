@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/alto.gd" id="1_alto"]
+[ext_resource type="Script" path="res://Scripts/placeholder_capsule.gd" id="2_capsule"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_alto"]
+radius = 20.0
+height = 96.0
+
+[node name="Alto" type="CharacterBody2D"]
+script = ExtResource("1_alto")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -48)
+shape = SubResource("CapsuleShape2D_alto")
+
+[node name="Body" type="Node2D" parent="."]
+script = ExtResource("2_capsule")
+color = Color(0.4, 0.8, 1, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0

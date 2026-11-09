@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/king.gd" id="1_king"]
+[ext_resource type="Script" path="res://Scripts/placeholder_capsule.gd" id="2_capsule"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
+radius = 180.0
+
+[node name="King" type="Node2D"]
+script = ExtResource("1_king")
+
+[node name="Body" type="Node2D" parent="."]
+script = ExtResource("2_capsule")
+radius = 28.0
+height = 150.0
+color = Color(1, 0.82, 0.3, 1)
+facing = -1
+
+[node name="InteractZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
+position = Vector2(0, -60)
+shape = SubResource("CircleShape2D_zone")
+
+[node name="Prompt" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -200.0
+offset_right = 60.0
+offset_bottom = -170.0
+theme_override_font_sizes/font_size = 22
+text = "[E] Bicara"
+horizontal_alignment = 1

@@ -1,0 +1,90 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/prolog.gd" id="1_prolog"]
+[ext_resource type="PackedScene" path="res://Scenes/alto.tscn" id="2_alto"]
+[ext_resource type="PackedScene" path="res://Scenes/king.tscn" id="3_king"]
+[ext_resource type="PackedScene" path="res://Scenes/dialogue_box.tscn" id="4_dialogue"]
+
+[sub_resource type="Gradient" id="Gradient_sky"]
+colors = PackedColorArray(0.02, 0.02, 0.1, 1, 0.3, 0.22, 0.5, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sky"]
+gradient = SubResource("Gradient_sky")
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+width = 4
+height = 256
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(2480, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 2400)
+
+[node name="Prolog" type="Node2D"]
+script = ExtResource("1_prolog")
+
+[node name="Sky" type="TextureRect" parent="."]
+offset_left = -2200.0
+offset_top = -2600.0
+offset_right = 2200.0
+offset_bottom = 0.0
+texture = SubResource("GradientTexture2D_sky")
+expand_mode = 1
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Visual" type="ColorRect" parent="Ground"]
+offset_left = -2200.0
+offset_top = -40.0
+offset_right = 2200.0
+offset_bottom = 600.0
+color = Color(0.18, 0.14, 0.25, 1)
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(-1220, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1220, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="King" parent="." instance=ExtResource("3_king")]
+position = Vector2(400, 0)
+
+[node name="Alto" parent="." instance=ExtResource("2_alto")]
+position = Vector2(-400, 0)
+
+[node name="DialogueBox" parent="." instance=ExtResource("4_dialogue")]
+
+[node name="IntroLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Fade" type="ColorRect" parent="IntroLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PrologTitle" type="Label" parent="IntroLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 88
+text = "PROLOG"
+horizontal_alignment = 1
+vertical_alignment = 1
