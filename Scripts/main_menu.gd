@@ -20,7 +20,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
-	_go_to_scene("res://Scenes/prolog.tscn", "Prolog")
+	_go_to_scene("res://Scenes/scene/prolog.tscn", "Prolog")
 
 
 func _on_deck_pressed() -> void:
