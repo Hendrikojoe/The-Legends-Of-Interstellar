@@ -1,0 +1,81 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/chapter_1.gd" id="1_chapter"]
+[ext_resource type="Texture2D" path="res://Assets/background/2.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://Scenes/alto.tscn" id="3_alto"]
+[ext_resource type="PackedScene" path="res://Scenes/slimy.tscn" id="4_slimy"]
+[ext_resource type="PackedScene" path="res://Scenes/dialogue_box.tscn" id="5_dialogue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(800, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 2400)
+
+[node name="Chapter1" type="Node2D"]
+script = ExtResource("1_chapter")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(101, -528)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_bg")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(900, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(580, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1220, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Slimy" parent="." instance=ExtResource("4_slimy")]
+position = Vector2(1080, 0)
+
+[node name="Alto" parent="." instance=ExtResource("3_alto")]
+position = Vector2(640, 0)
+
+[node name="DialogueBox" parent="." instance=ExtResource("5_dialogue")]
+
+[node name="IntroLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Fade" type="ColorRect" parent="IntroLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TitleBox" type="VBoxContainer" parent="IntroLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ChapterLabel" type="Label" parent="IntroLayer/TitleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 88
+text = "CHAPTER 1"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="IntroLayer/TitleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sebuah Perjalanan Dimulai"
+horizontal_alignment = 1

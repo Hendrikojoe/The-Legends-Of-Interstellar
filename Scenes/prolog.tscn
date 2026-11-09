@@ -23,6 +23,7 @@ size = Vector2(40, 2400)
 
 [node name="Prolog" type="Node2D" unique_id=2042070859]
 script = ExtResource("1_prolog")
+next_scene = "res://Scenes/chapter_1.tscn"
 
 [node name="Sky" type="TextureRect" parent="." unique_id=959318117]
 offset_left = -2200.0
