@@ -1,23 +1,24 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bdg67fuptfuqb"]
 
-[ext_resource type="Script" path="res://Scripts/alto.gd" id="1_alto"]
-[ext_resource type="Script" path="res://Scripts/placeholder_capsule.gd" id="2_capsule"]
+[ext_resource type="Script" uid="uid://bbjpo6y60e2o4" path="res://Scripts/alto.gd" id="1_alto"]
+[ext_resource type="Texture2D" uid="uid://c08cghsfsoq77" path="res://Assets/PNG CHARACTER/ALTO/FORM 1/neutral.png" id="2_iraci"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_alto"]
 radius = 20.0
 height = 96.0
 
-[node name="Alto" type="CharacterBody2D"]
+[node name="Alto" type="CharacterBody2D" unique_id=1182779722]
 script = ExtResource("1_alto")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1409879417]
 position = Vector2(0, -48)
 shape = SubResource("CapsuleShape2D_alto")
 
-[node name="Body" type="Node2D" parent="."]
-script = ExtResource("2_capsule")
-color = Color(0.4, 0.8, 1, 1)
+[node name="Body" type="Sprite2D" parent="." unique_id=831388474]
+position = Vector2(1.9999924, -101)
+scale = Vector2(0.19490743, 0.19148149)
+texture = ExtResource("2_iraci")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1192516736]
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
