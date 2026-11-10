@@ -17,6 +17,7 @@ size = Vector2(40, 2400)
 
 [node name="Chapter2" type="Node2D"]
 script = ExtResource("1_chapter")
+next_scene = "res://Scenes/battle/battle_carrota.tscn"
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(0, -528)

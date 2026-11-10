@@ -27,7 +27,7 @@ position = Vector2(489, 308.5)
 scale = Vector2(0.69166666, 0.625)
 texture = ExtResource("1_bg")
 
-[node name="Slimy" parent="Stage" unique_id=446396574 instance=ExtResource("2_slimy")]
+[node name="Enemy" parent="Stage" unique_id=446396574 instance=ExtResource("2_slimy")]
 position = Vector2(784, 441)
 scale = Vector2(0.6258167, 0.65836966)
 enabled = false
@@ -194,6 +194,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 54)
 layout_mode = 2
 text = "Maafkan"
+
+[node name="ContinueButton" type="Button" parent="HUD/Overlay/ResultPanel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(220, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Lanjutkan"
 
 [node name="Actions" type="HBoxContainer" parent="HUD/Overlay/ResultPanel" unique_id=2033902849]
 layout_mode = 2
