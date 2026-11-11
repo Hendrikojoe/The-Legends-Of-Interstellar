@@ -1,15 +1,14 @@
 extends Node2D
-## Chapter 3 - Pesulap di Balik Cermin (Reruntuhan Cermin).
+## Chapter 3 - Pesulap di Balik Cermin.
 ##
 ## Alur:
-##   1. Layar hitam + judul CHAPTER 3 / Pesulap di Balik Cermin, lalu kamera turun pelan
-##      (sama seperti intro Prolog / Chapter 1 / Chapter 2).
-##   2. Alto berjalan ke kanan, mendekati Hanpi-hanpi -> dialog mulai otomatis.
-##   3. Dialog selesai -> layar fade hitam -> battle Hanpi-hanpi.
-##   4. Menang -> Chapter 3 Ending ("To Be Continued?").
+##   1. Layar hitam + judul CHAPTER 3 / Pesulap di Balik Cermin, lalu kamera turun pelan.
+##   2. Alto berjalan ke kanan menuju reruntuhan.
+##   3. Alto mendekati Hanpi-hanpi -> dialog mulai otomatis.
+##   4. Dialog selesai -> layar fade hitam -> battle melawan Hanpi-hanpi (next_scene).
 
-## Scene berikutnya (battle Hanpi-hanpi).
-@export_file("*.tscn") var next_scene: String = "res://Scenes/battle/battle_hanpi.tscn"
+## Scene berikutnya (battle Hanpi-hanpi). Drag file .tscn-nya ke slot ini di Inspector.
+@export_file("*.tscn") var next_scene: String = ""
 
 @export_group("Intro")
 ## Lama kamera turun dari atas ke Alto (detik).
@@ -23,38 +22,32 @@ extends Node2D
 ## Batas kanan kamera (koordinat dunia) supaya tidak menampilkan area kosong di luar background.
 @export var camera_limit_right: int = 1152
 
-# ------------------------------------------------------------------
-# TEKS CERITA - edit di sini. speaker kosong ("") = narasi tanpa nama.
-# (Teks ini draf dari saya, silakan ganti sesuai cerita kamu.)
-# ------------------------------------------------------------------
+## Dialog sebelum battle. (Draf dari saya, silakan ganti dengan cerita kalian.)
+## speaker kosong ("") = teks narasi tanpa nama.
 const DIALOGUE := [
 	{
+		"speaker": "Hanpi-hanpi",
+		"text": "Berhenti di situ, Bintang Kecil. Reruntuhan ini bukan tempat untuk orang yang tersesat.",
+	},
+	{
 		"speaker": "Alto",
-		"text": "Tempat apa ini...? Cahaya ungu ada di mana-mana, dan reruntuhan ini terasa aneh.",
+		"text": "Siapa kau? Aku tidak tersesat. Aku sedang mencari Putri Ellie, dan jalan menuju goa Brok ada di balik sini.",
 	},
 	{
 		"speaker": "Hanpi-hanpi",
-		"text": "Hihihi... Satu penonton lagi masuk ke dalam pertunjukanku!",
+		"text": "Hihihi... Putri Ellie? Semua yang mencarinya hanya menemukan bayangan mereka sendiri di dalam cermin ini.",
 	},
 	{
 		"speaker": "Alto",
-		"text": "Cermin yang bisa bicara?! Siapa kau sebenarnya?",
+		"text": "Aku tidak punya waktu untuk permainan cerminmu. Minggirlah!",
 	},
 	{
 		"speaker": "Hanpi-hanpi",
-		"text": "Aku Hanpi-hanpi, pesulap yang tinggal di balik cermin! Tidak ada yang boleh melewati reruntuhan ini sebelum menyaksikan triknya.",
+		"text": "Kalau begitu, tunjukkan padaku! Mari kita lihat siapa yang lebih pandai, bintang kecil atau sihir di balik cermin!",
 	},
 	{
 		"speaker": "Alto",
-		"text": "Aku tidak punya waktu untuk pertunjukan. Aku harus menyelamatkan Putri Ellie dari Brok!",
-	},
-	{
-		"speaker": "Hanpi-hanpi",
-		"text": "Kalau begitu, kalahkan aku dulu! Tapi hati-hati... serangan yang kau lepaskan bisa saja kembali padamu. Hihihi!",
-	},
-	{
-		"speaker": "Alto",
-		"text": "Aku tidak akan terpedaya oleh sulapmu. Majulah!",
+		"text": "Kalau kau tetap menghalangi jalanku, aku terpaksa melawanmu!",
 	},
 ]
 
@@ -134,12 +127,10 @@ func _on_dialogue_finished() -> void:
 func _end_chapter() -> void:
 	var tween := create_tween()
 	tween.tween_property(fade, "color:a", 1.0, 2.0)
-	tween.tween_callback(_change_to_next_scene)
-
-
-func _change_to_next_scene() -> void:
+	await tween.finished
 	if next_scene.is_empty():
 		print("[Chapter3] next_scene belum diisi. Isi lewat Inspector (node Chapter3).")
+		# Supaya masih bisa dites: layar kembali terang dan Alto bisa digerakkan lagi.
 		alto.can_move = true
 		create_tween().tween_property(fade, "color:a", 0.0, 1.0)
 		return

@@ -24,6 +24,10 @@ GameState="*res://Scripts/game_state.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+theme/custom_font="res://Assets/PixelOverload_FontsBasicPack/Baskic8.otf"
+
 [input]
 
 move_left={

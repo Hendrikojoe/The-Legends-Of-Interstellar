@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/battle/enemy_view.gd" id="1_view"]
+
+[node name="EnemyView" type="Node2D"]
+script = ExtResource("1_view")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+centered = false
+
+[node name="Fx" type="Node2D" parent="."]
+z_index = 10
+
+[node name="IntentRoot" type="Node2D" parent="."]
+visible = false
+z_index = 20
+
+[node name="Card" type="Sprite2D" parent="IntentRoot"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="IntentRoot"]
+offset_left = -90.0
+offset_top = 46.0
+offset_right = 90.0
+offset_bottom = 72.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
