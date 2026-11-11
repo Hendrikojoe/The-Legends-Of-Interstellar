@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/ui/game_over.gd" id="1_gameover"]
+[ext_resource type="Texture2D" path="res://Assets/ui/divider.png" id="2_divider"]
 
 [node name="GameOver" type="CanvasLayer"]
 layer = 40
@@ -12,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.88)
+color = Color(0.02, 0.01, 0.06, 0.9)
 
 [node name="Center" type="CenterContainer" parent="Overlay"]
 layout_mode = 1
@@ -22,38 +23,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Overlay/Center"]
+[node name="Panel" type="PanelContainer" parent="Overlay/Center"]
+custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
-theme_override_constants/separation = 24
 
-[node name="TitleLabel" type="Label" parent="Overlay/Center/VBox"]
+[node name="VBox" type="VBoxContainer" parent="Overlay/Center/Panel"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
-theme_override_font_sizes/font_size = 64
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Overlay/Center/Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_colors/font_color = Color(1, 0.35, 0.4, 1)
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="MessageLabel" type="Label" parent="Overlay/Center/VBox"]
-custom_minimum_size = Vector2(700, 0)
+[node name="Divider" type="TextureRect" parent="Overlay/Center/Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+size_flags_horizontal = 4
+texture = ExtResource("2_divider")
+stretch_mode = 5
+
+[node name="MessageLabel" type="Label" parent="Overlay/Center/Panel/VBox"]
+layout_mode = 2
 text = ""
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Buttons" type="HBoxContainer" parent="Overlay/Center/VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Overlay/Center/Panel/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="RetryButton" type="Button" parent="Overlay/Center/VBox/Buttons"]
+[node name="RetryButton" type="Button" parent="Overlay/Center/Panel/VBox/Buttons"]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Coba Lagi"
 
-[node name="MainMenuButton" type="Button" parent="Overlay/Center/VBox/Buttons"]
+[node name="MainMenuButton" type="Button" parent="Overlay/Center/Panel/VBox/Buttons"]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Menu Utama"

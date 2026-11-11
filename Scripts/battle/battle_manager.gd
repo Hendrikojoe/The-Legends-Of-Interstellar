@@ -746,21 +746,26 @@ func _refresh_ui() -> void:
 	enemy_hp_bar.max_value = enemy_max_hp
 	enemy_hp_bar.value = enemy_hp
 	enemy_hp_label.text = "HP %d/%d" % [enemy_hp, enemy_max_hp]
-	enemy_block_label.text = ("Block: %d" % enemy_block) if enemy_block > 0 else ""
+	enemy_block_label.text = ("Block %d" % enemy_block) if enemy_block > 0 else ""
+	enemy_block_label.visible = enemy_block > 0
 	enemy_status_label.text = _enemy_status_text()
+	enemy_status_label.visible = not enemy_status_label.text.is_empty()
 	if enemy_intent.is_empty():
 		enemy_intent_label.text = ""
 	else:
 		enemy_intent_label.text = str(enemy_intent.get("summary", ""))
+	enemy_intent_label.visible = not enemy_intent_label.text.is_empty()
 
 	player_hp_bar.max_value = player_max_hp
 	player_hp_bar.value = player_hp
 	player_hp_label.text = "HP %d/%d" % [player_hp, player_max_hp]
-	player_block_label.text = ("Block: %d" % player_block) if player_block > 0 else ""
+	player_block_label.text = ("Block %d" % player_block) if player_block > 0 else ""
+	player_block_label.visible = player_block > 0
 	player_status_label.text = _player_status_text()
+	player_status_label.visible = not player_status_label.text.is_empty()
 
-	deck_label.text = "Deck: %d" % deck.size()
-	discard_label.text = "Discard: %d" % discard.size()
+	deck_label.text = str(deck.size())
+	discard_label.text = str(discard.size())
 
 	var turn_status := "Giliran Alto"
 	if state == State.ENEMY_TURN:
@@ -769,7 +774,7 @@ func _refresh_ui() -> void:
 		turn_status = "Menyerang..."
 	elif state == State.WON or state == State.LOST:
 		turn_status = "Selesai"
-	turn_label.text = "Turn %d - %s" % [turn_count, turn_status]
+	turn_label.text = "Turn %d\n%s" % [turn_count, turn_status]
 
 
 func _status_name(status: String) -> String:

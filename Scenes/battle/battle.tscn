@@ -5,12 +5,26 @@
 [ext_resource type="Script" uid="uid://h1wekw1bdrhd" path="res://Scripts/battle/battle_manager.gd" id="4_manager"]
 [ext_resource type="PackedScene" path="res://Scenes/battle/enemy_view.tscn" id="5_enemy"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/dialogue_box.tscn" id="6_dialogue"]
+[ext_resource type="FontFile" path="res://Assets/fonts/pixel_overload/Essentle4.otf" id="7_title_font"]
+[ext_resource type="Texture2D" path="res://Assets/ui/icon_deck.png" id="8_deck"]
+[ext_resource type="Texture2D" path="res://Assets/ui/icon_discard.png" id="9_discard"]
+[ext_resource type="Texture2D" path="res://Assets/ui/divider.png" id="10_divider"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqg5c"]
 size = Vector2(800, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jhgr"]
 size = Vector2(40, 2400)
+
+[sub_resource type="Gradient" id="Gradient_hand"]
+colors = PackedColorArray(0.03, 0.03, 0.12, 0, 0.03, 0.03, 0.12, 0.88)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hand"]
+gradient = SubResource("Gradient_hand")
+width = 4
+height = 256
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
 
 [node name="Battle" type="Control" unique_id=1685692194]
 layout_mode = 3
@@ -40,7 +54,19 @@ position = Vector2(472, 456)
 [node name="HUD" type="CanvasLayer" parent="." unique_id=553585913]
 layer = 5
 
-[node name="Layout" type="VBoxContainer" parent="HUD" unique_id=739397436]
+[node name="HandBackdrop" type="TextureRect" parent="HUD"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hand")
+expand_mode = 1
+
+[node name="Layout" type="VBoxContainer" parent="HUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -52,131 +78,224 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="TopBar" type="HBoxContainer" parent="HUD/Layout" unique_id=549993082]
+[node name="TopBar" type="HBoxContainer" parent="HUD/Layout"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="PlayerPanel" type="VBoxContainer" parent="HUD/Layout/TopBar" unique_id=1094166779]
+[node name="PlayerPanel" type="PanelContainer" parent="HUD/Layout/TopBar"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 2
+size_flags_vertical = 0
+theme_type_variation = &"HudPanel"
 
-[node name="PlayerName" type="Label" parent="HUD/Layout/TopBar/PlayerPanel" unique_id=1391891918]
+[node name="VBox" type="VBoxContainer" parent="HUD/Layout/TopBar/PlayerPanel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_constants/separation = 4
+
+[node name="PlayerName" type="Label" parent="HUD/Layout/TopBar/PlayerPanel/VBox"]
+layout_mode = 2
+theme_type_variation = &"Heading"
+theme_override_font_sizes/font_size = 24
 text = "Alto"
 
-[node name="PlayerHPBar" type="ProgressBar" parent="HUD/Layout/TopBar/PlayerPanel" unique_id=752656768]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 18)
+[node name="BarFrame" type="PanelContainer" parent="HUD/Layout/TopBar/PlayerPanel/VBox"]
 layout_mode = 2
-size_flags_horizontal = 0
+theme_type_variation = &"BarFrame"
+
+[node name="PlayerHPBar" type="ProgressBar" parent="HUD/Layout/TopBar/PlayerPanel/VBox/BarFrame"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 max_value = 30.0
 value = 30.0
 show_percentage = false
 
-[node name="PlayerHPLabel" type="Label" parent="HUD/Layout/TopBar/PlayerPanel" unique_id=55213627]
+[node name="PlayerHPLabel" type="Label" parent="HUD/Layout/TopBar/PlayerPanel/VBox/BarFrame/PlayerHPBar"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HpText"
 text = "HP 30/30"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PlayerBlock" type="Label" parent="HUD/Layout/TopBar/PlayerPanel" unique_id=502058759]
+[node name="Chips" type="HBoxContainer" parent="HUD/Layout/TopBar/PlayerPanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlayerBlock" type="Label" parent="HUD/Layout/TopBar/PlayerPanel/VBox/Chips"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"ChipCyan"
 
-[node name="PlayerStatus" type="Label" parent="HUD/Layout/TopBar/PlayerPanel" unique_id=24863050]
+[node name="PlayerStatus" type="Label" parent="HUD/Layout/TopBar/PlayerPanel/VBox/Chips"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
-theme_override_font_sizes/font_size = 16
+size_flags_vertical = 4
+theme_type_variation = &"ChipViolet"
 
-[node name="EnemyPanel" type="VBoxContainer" parent="HUD/Layout/TopBar" unique_id=1017178163]
-custom_minimum_size = Vector2(360, 0)
+[node name="SpacerL" type="Control" parent="HUD/Layout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 2
 
-[node name="EnemyName" type="Label" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=2105628891]
+[node name="EnemyPanel" type="PanelContainer" parent="HUD/Layout/TopBar"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"HudPanel"
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Layout/TopBar/EnemyPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EnemyName" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"Heading"
 theme_override_font_sizes/font_size = 24
 text = "Slimy"
 horizontal_alignment = 1
 
-[node name="EnemyHPBar" type="ProgressBar" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=514954000]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 18)
+[node name="BarFrame" type="PanelContainer" parent="HUD/Layout/TopBar/EnemyPanel/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_type_variation = &"BarFrame"
+
+[node name="EnemyHPBar" type="ProgressBar" parent="HUD/Layout/TopBar/EnemyPanel/VBox/BarFrame"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"HPBarEnemy"
 max_value = 40.0
 value = 40.0
 show_percentage = false
 
-[node name="EnemyHPLabel" type="Label" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=1617961394]
+[node name="EnemyHPLabel" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox/BarFrame/EnemyHPBar"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HpText"
 text = "HP 40/40"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="EnemyBlock" type="Label" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=1695326799]
+[node name="Chips" type="HBoxContainer" parent="HUD/Layout/TopBar/EnemyPanel/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="EnemyBlock" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox/Chips"]
 unique_name_in_owner = true
 layout_mode = 2
-horizontal_alignment = 1
+size_flags_vertical = 4
+theme_type_variation = &"ChipCyan"
 
-[node name="EnemyStatus" type="Label" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=1643398955]
+[node name="EnemyStatus" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox/Chips"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
+size_flags_vertical = 4
+theme_type_variation = &"ChipViolet"
 
-[node name="EnemyIntent" type="Label" parent="HUD/Layout/TopBar/EnemyPanel" unique_id=1148079077]
+[node name="EnemyIntent" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 15
+theme_type_variation = &"InsetLabel"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="InfoPanel" type="VBoxContainer" parent="HUD/Layout/TopBar" unique_id=2079091932]
+[node name="SpacerR" type="Control" parent="HUD/Layout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 2
 
-[node name="TurnLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel" unique_id=1878671039]
+[node name="InfoPanel" type="PanelContainer" parent="HUD/Layout/TopBar"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"HudPanel"
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Layout/TopBar/InfoPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TurnLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.4, 1)
 text = "Turn 1"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
-[node name="DeckLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel" unique_id=468583805]
+[node name="HSeparator" type="HSeparator" parent="HUD/Layout/TopBar/InfoPanel/VBox"]
+layout_mode = 2
+
+[node name="Counters" type="HBoxContainer" parent="HUD/Layout/TopBar/InfoPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="DeckBox" type="HBoxContainer" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DeckIcon" type="TextureRect" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters/DeckBox"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("8_deck")
+stretch_mode = 5
+
+[node name="DeckLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters/DeckBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Deck: 0"
-horizontal_alignment = 2
+text = "0"
 
-[node name="DiscardLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel" unique_id=449874164]
+[node name="DiscardBox" type="HBoxContainer" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DiscardIcon" type="TextureRect" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters/DiscardBox"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("9_discard")
+stretch_mode = 5
+
+[node name="DiscardLabel" type="Label" parent="HUD/Layout/TopBar/InfoPanel/VBox/Counters/DiscardBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Discard: 0"
-horizontal_alignment = 2
+text = "0"
 
-[node name="Spacer" type="Control" parent="HUD/Layout" unique_id=1172124267]
+[node name="Spacer" type="Control" parent="HUD/Layout"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LogLabel" type="RichTextLabel" parent="HUD/Layout" unique_id=505848479]
+[node name="LogPanel" type="PanelContainer" parent="HUD/Layout"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InsetPanel"
+
+[node name="LogLabel" type="RichTextLabel" parent="HUD/Layout/LogPanel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 bbcode_enabled = true
 scroll_following = true
 
-[node name="HandSpace" type="Control" parent="HUD/Layout" unique_id=1793943765]
+[node name="HandSpace" type="Control" parent="HUD/Layout"]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 
-[node name="HandContainer" type="HBoxContainer" parent="HUD" unique_id=2038758622]
+[node name="HandContainer" type="HBoxContainer" parent="HUD"]
 unique_name_in_owner = true
 anchors_preset = 12
 anchor_top = 1.0
@@ -188,7 +307,7 @@ grow_vertical = 0
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Overlay" type="ColorRect" parent="HUD" unique_id=1807989808]
+[node name="Overlay" type="ColorRect" parent="HUD"]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -196,64 +315,75 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.78)
+color = Color(0.02, 0.02, 0.09, 0.82)
 
-[node name="ResultPanel" type="VBoxContainer" parent="HUD/Overlay" unique_id=350905611]
+[node name="Center" type="CenterContainer" parent="HUD/Overlay"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -230.0
-offset_top = -110.0
-offset_right = 230.0
-offset_bottom = 110.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 18
-alignment = 1
 
-[node name="ResultLabel" type="Label" parent="HUD/Overlay/ResultPanel" unique_id=1052444020]
+[node name="ResultPanel" type="PanelContainer" parent="HUD/Overlay/Center"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Overlay/Center/ResultPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ResultLabel" type="Label" parent="HUD/Overlay/Center/ResultPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_title_font")
+theme_override_font_sizes/font_size = 40
 text = "HASIL"
 horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="ChoiceContainer" type="HBoxContainer" parent="HUD/Overlay/ResultPanel" unique_id=1986629201]
+[node name="Divider" type="TextureRect" parent="HUD/Overlay/Center/ResultPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("10_divider")
+stretch_mode = 5
+
+[node name="ChoiceContainer" type="HBoxContainer" parent="HUD/Overlay/Center/ResultPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="DestroyButton" type="Button" parent="HUD/Overlay/ResultPanel/ChoiceContainer" unique_id=838039125]
+[node name="DestroyButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/ChoiceContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 54)
 layout_mode = 2
 text = "Hancurkan"
 
-[node name="ForgiveButton" type="Button" parent="HUD/Overlay/ResultPanel/ChoiceContainer" unique_id=1442501336]
+[node name="ForgiveButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/ChoiceContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 54)
 layout_mode = 2
 text = "Maafkan"
 
-[node name="Actions" type="HBoxContainer" parent="HUD/Overlay/ResultPanel" unique_id=1400339997]
+[node name="Actions" type="HBoxContainer" parent="HUD/Overlay/Center/ResultPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="RestartButton" type="Button" parent="HUD/Overlay/ResultPanel/Actions" unique_id=1619427533]
+[node name="RestartButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/Actions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 42)
+custom_minimum_size = Vector2(150, 46)
 layout_mode = 2
 text = "Ulangi"
 
-[node name="MenuButton" type="Button" parent="HUD/Overlay/ResultPanel/Actions" unique_id=1617270725]
+[node name="MenuButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/Actions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 42)
+custom_minimum_size = Vector2(150, 46)
 layout_mode = 2
 text = "Menu"
 

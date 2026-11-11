@@ -11,10 +11,13 @@ var _index: int = 0
 var _typing: bool = false
 var _tween: Tween
 
-@onready var panel: PanelContainer = $Panel
-@onready var name_label: Label = $Panel/Margin/VBox/NameLabel
-@onready var text_label: Label = $Panel/Margin/VBox/TextLabel
-@onready var hint_label: Label = $Panel/Margin/VBox/HintLabel
+@onready var panel: Control = $Panel
+@onready var name_label: Label = $Panel/NameLabel
+@onready var text_label: Label = $Panel/Frame/VBox/TextLabel
+@onready var hint_label: Label = $Panel/Frame/VBox/HintRow/HintLabel
+@onready var arrow: TextureRect = $Panel/Frame/VBox/HintRow/Arrow
+
+var _arrow_tween: Tween
 
 
 func _ready() -> void:
@@ -65,6 +68,7 @@ func _show_line() -> void:
 	text_label.text = text
 	text_label.visible_ratio = 0.0
 	hint_label.hide()
+	_set_arrow(false)
 
 	_typing = true
 	if _tween:
@@ -85,6 +89,20 @@ func _finish_typing() -> void:
 func _on_typing_done() -> void:
 	_typing = false
 	hint_label.show()
+	_set_arrow(true)
+
+
+## Panah kecil di pojok kanan bawah yang berkedip lembut saat teks selesai diketik.
+func _set_arrow(on: bool) -> void:
+	if _arrow_tween:
+		_arrow_tween.kill()
+	arrow.visible = on
+	arrow.modulate.a = 1.0
+	if not on:
+		return
+	_arrow_tween = create_tween().set_loops()
+	_arrow_tween.tween_property(arrow, "modulate:a", 0.25, 0.45)
+	_arrow_tween.tween_property(arrow, "modulate:a", 1.0, 0.45)
 
 
 func _next_line() -> void:

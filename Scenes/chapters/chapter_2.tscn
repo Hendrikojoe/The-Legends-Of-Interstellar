@@ -90,12 +90,12 @@ alignment = 1
 
 [node name="ChapterLabel" type="Label" parent="IntroLayer/TitleBox" unique_id=1414645184]
 layout_mode = 2
-theme_override_font_sizes/font_size = 88
+theme_type_variation = &"ChapterTitle"
 text = "CHAPTER 2"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="IntroLayer/TitleBox" unique_id=756621147]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_type_variation = &"ChapterSubtitle"
 text = "Sang Koki Sayuran"
 horizontal_alignment = 1

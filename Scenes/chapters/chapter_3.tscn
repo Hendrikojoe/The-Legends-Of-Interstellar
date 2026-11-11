@@ -71,12 +71,12 @@ alignment = 1
 
 [node name="ChapterLabel" type="Label" parent="IntroLayer/TitleBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 88
+theme_type_variation = &"ChapterTitle"
 text = "CHAPTER 3"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="IntroLayer/TitleBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_type_variation = &"ChapterSubtitle"
 text = "Pesulap di Balik Cermin"
 horizontal_alignment = 1

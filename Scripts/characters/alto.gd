@@ -22,7 +22,7 @@ var has_crystal: bool = false
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var body_visual: Node2D = $Body
+@onready var body_visual: AnimatedSprite2D = $Body
 @onready var camera: Camera2D = $Camera2D
 
 
@@ -51,6 +51,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
 
 	move_and_slide()
+	_update_animation()
+
+
+## Pilih animasi sprite: jalan saat bergerak di tanah, diam (idle) selain itu; menghadap arah terakhir.
+func _update_animation() -> void:
+	var side := "right" if facing >= 0 else "left"
+	var walking := is_on_floor() and absf(velocity.x) > 20.0
+	var anim := ("walk_" if walking else "idle_") + side
+	body_visual.speed_scale = 0.6 if is_crouching else 1.0
+	if body_visual.animation != anim:
+		body_visual.play(anim)
 
 
 func _get_direction() -> float:
@@ -81,11 +92,7 @@ func _apply_height(height: float) -> void:
 	var capsule := collision.shape as CapsuleShape2D
 	capsule.height = height
 	collision.position.y = -height / 2.0
-	if body_visual.has_method("set_capsule_height"):
-		body_visual.set_capsule_height(height)
 
 
 func _set_facing(new_facing: int) -> void:
 	facing = new_facing
-	if "facing" in body_visual:
-		body_visual.facing = new_facing

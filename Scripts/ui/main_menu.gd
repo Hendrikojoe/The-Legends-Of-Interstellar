@@ -4,6 +4,7 @@ extends Control
 @export_file("*.tscn") var deck_scene: String = ""
 @export_file("*.tscn") var settings_scene: String = ""
 
+@onready var background: VideoStreamPlayer = $Background
 @onready var play_button: Button = $Content/Layout/MenusButtons/PlayButton
 @onready var deck_button: Button = $Content/Layout/MenusButtons/DeckButton
 @onready var settings_button: Button = $Content/Layout/MenusButtons/SettingsButton
@@ -11,6 +12,8 @@ extends Control
 
 
 func _ready() -> void:
+	# Video latar di-loop lewat properti `loop`; sambungan ini cadangan untuk versi Godot yang tidak mengulang otomatis.
+	background.finished.connect(background.play)
 	play_button.pressed.connect(_on_play_pressed)
 	deck_button.pressed.connect(_on_deck_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)

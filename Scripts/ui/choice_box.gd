@@ -11,8 +11,8 @@ signal chosen(index: int)
 var is_active: bool = false
 
 @onready var panel: PanelContainer = $Panel
-@onready var prompt_label: Label = $Panel/Margin/VBox/PromptLabel
-@onready var options_box: VBoxContainer = $Panel/Margin/VBox/Options
+@onready var prompt_label: Label = $Panel/VBox/PromptLabel
+@onready var options_box: VBoxContainer = $Panel/VBox/Options
 
 
 func _ready() -> void:
@@ -31,7 +31,6 @@ func ask(options: Array, prompt: String = "") -> int:
 		var button := Button.new()
 		button.text = str(options[i])
 		button.custom_minimum_size = Vector2(0.0, 52.0)
-		button.add_theme_font_size_override("font_size", 24)
 		button.pressed.connect(_on_option_pressed.bind(i))
 		options_box.add_child(button)
 

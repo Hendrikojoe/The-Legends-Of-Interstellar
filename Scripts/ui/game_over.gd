@@ -6,10 +6,10 @@ extends CanvasLayer
 const MAIN_MENU_PATH := "res://Scenes/ui/main_menu.tscn"
 
 @onready var overlay: ColorRect = $Overlay
-@onready var title_label: Label = $Overlay/Center/VBox/TitleLabel
-@onready var message_label: Label = $Overlay/Center/VBox/MessageLabel
-@onready var retry_button: Button = $Overlay/Center/VBox/Buttons/RetryButton
-@onready var menu_button: Button = $Overlay/Center/VBox/Buttons/MainMenuButton
+@onready var title_label: Label = $Overlay/Center/Panel/VBox/TitleLabel
+@onready var message_label: Label = $Overlay/Center/Panel/VBox/MessageLabel
+@onready var retry_button: Button = $Overlay/Center/Panel/VBox/Buttons/RetryButton
+@onready var menu_button: Button = $Overlay/Center/Panel/VBox/Buttons/MainMenuButton
 
 
 func _ready() -> void:

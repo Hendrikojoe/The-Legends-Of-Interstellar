@@ -38,10 +38,11 @@ position = Vector2(0, -60)
 shape = SubResource("CircleShape2D_zone")
 
 [node name="Prompt" type="Label" parent="."]
+theme_type_variation = &"PromptTag"
+grow_horizontal = 2
 offset_left = -60.0
 offset_top = -250.0
 offset_right = 60.0
 offset_bottom = -220.0
-theme_override_font_sizes/font_size = 22
 text = "[E] Bicara"
 horizontal_alignment = 1

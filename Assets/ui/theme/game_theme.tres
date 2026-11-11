@@ -1,0 +1,315 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="FontFile" path="res://Assets/fonts/pixel_overload/Baskic8.otf" id="font_body"]
+[ext_resource type="FontFile" path="res://Assets/fonts/pixel_overload/Essentle4.otf" id="font_title"]
+[ext_resource type="Texture2D" path="res://Assets/ui/panel.png" id="t_panel"]
+[ext_resource type="Texture2D" path="res://Assets/ui/panel_inset.png" id="t_inset"]
+[ext_resource type="Texture2D" path="res://Assets/ui/bar_frame.png" id="t_barframe"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button_normal.png" id="t_sb_bn"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button_hover.png" id="t_sb_bh"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button_pressed.png" id="t_sb_bp"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button_disabled.png" id="t_sb_bd"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button_focus.png" id="t_bf"]
+[ext_resource type="Texture2D" path="res://Assets/ui/chip_navy.png" id="t_chip_navy"]
+[ext_resource type="Texture2D" path="res://Assets/ui/chip_cyan.png" id="t_chip_cyan"]
+[ext_resource type="Texture2D" path="res://Assets/ui/chip_violet.png" id="t_chip_violet"]
+[ext_resource type="Texture2D" path="res://Assets/ui/chip_gold.png" id="t_chip_gold"]
+[ext_resource type="Texture2D" path="res://Assets/ui/nameplate.png" id="t_name"]
+[ext_resource type="Texture2D" path="res://Assets/ui/bar_fill_player.png" id="t_fill_p"]
+[ext_resource type="Texture2D" path="res://Assets/ui/bar_fill_enemy.png" id="t_fill_e"]
+
+[sub_resource type="StyleBoxTexture" id="sb_panel"]
+content_margin_left = 30.0
+content_margin_top = 24.0
+content_margin_right = 30.0
+content_margin_bottom = 24.0
+texture = ExtResource("t_panel")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="sb_dialog"]
+content_margin_left = 36.0
+content_margin_top = 26.0
+content_margin_right = 36.0
+content_margin_bottom = 22.0
+texture = ExtResource("t_panel")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+modulate_color = Color(1, 1, 1, 0.95)
+
+[sub_resource type="StyleBoxTexture" id="sb_hud"]
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+texture = ExtResource("t_panel")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+modulate_color = Color(1, 1, 1, 0.9)
+
+[sub_resource type="StyleBoxTexture" id="sb_inset"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+texture = ExtResource("t_inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1, 1, 1, 0.9)
+
+[sub_resource type="StyleBoxTexture" id="sb_barframe"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+texture = ExtResource("t_barframe")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="sb_bn"]
+content_margin_left = 36.0
+content_margin_top = 12.0
+content_margin_right = 36.0
+content_margin_bottom = 12.0
+texture = ExtResource("t_sb_bn")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="sb_bh"]
+content_margin_left = 36.0
+content_margin_top = 12.0
+content_margin_right = 36.0
+content_margin_bottom = 12.0
+texture = ExtResource("t_sb_bh")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="sb_bp"]
+content_margin_left = 36.0
+content_margin_top = 12.0
+content_margin_right = 36.0
+content_margin_bottom = 12.0
+texture = ExtResource("t_sb_bp")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="sb_bd"]
+content_margin_left = 36.0
+content_margin_top = 12.0
+content_margin_right = 36.0
+content_margin_bottom = 12.0
+texture = ExtResource("t_sb_bd")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="sb_bf"]
+texture = ExtResource("t_bf")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_chip_navy"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+texture = ExtResource("t_chip_navy")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="sb_chip_cyan"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+texture = ExtResource("t_chip_cyan")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="sb_chip_violet"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+texture = ExtResource("t_chip_violet")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="sb_chip_gold"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+texture = ExtResource("t_chip_gold")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="sb_name"]
+content_margin_left = 24.0
+content_margin_top = 6.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+texture = ExtResource("t_name")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="sb_fill_p"]
+texture = ExtResource("t_fill_p")
+texture_margin_left = 0.0
+texture_margin_top = 6.0
+texture_margin_right = 0.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="sb_fill_e"]
+texture = ExtResource("t_fill_e")
+texture_margin_left = 0.0
+texture_margin_top = 6.0
+texture_margin_right = 0.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="sb_barbg"]
+bg_color = Color(0.027, 0.031, 0.11, 1)
+
+[sub_resource type="StyleBoxLine" id="sb_sep"]
+color = Color(110, 74, 20, 255)
+thickness = 3
+
+[resource]
+default_font = ExtResource("font_body")
+default_font_size = 24
+Label/colors/font_color = Color(0.910, 0.922, 1.000, 1.0)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.6)
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+TitleLabel/base_type = &"Label"
+TitleLabel/fonts/font = ExtResource("font_title")
+TitleLabel/font_sizes/font_size = 64
+TitleLabel/colors/font_color = Color(1.000, 0.820, 0.400, 1.0)
+TitleLabel/colors/font_outline_color = Color(0.020, 0.024, 0.102, 1.0)
+TitleLabel/constants/outline_size = 12
+TitleLabel/constants/shadow_offset_x = 4
+TitleLabel/constants/shadow_offset_y = 4
+ChapterTitle/base_type = &"Label"
+ChapterTitle/fonts/font = ExtResource("font_title")
+ChapterTitle/font_sizes/font_size = 64
+ChapterTitle/colors/font_color = Color(1.000, 0.820, 0.400, 1.0)
+ChapterTitle/colors/font_outline_color = Color(0.020, 0.024, 0.102, 1.0)
+ChapterTitle/constants/outline_size = 12
+ChapterTitle/constants/shadow_offset_x = 4
+ChapterTitle/constants/shadow_offset_y = 4
+ChapterSubtitle/base_type = &"Label"
+ChapterSubtitle/font_sizes/font_size = 32
+ChapterSubtitle/colors/font_color = Color(0.847, 0.788, 1.000, 1.0)
+ChapterSubtitle/colors/font_outline_color = Color(0.020, 0.024, 0.102, 1.0)
+ChapterSubtitle/constants/outline_size = 8
+Heading/base_type = &"Label"
+Heading/fonts/font = ExtResource("font_title")
+Heading/font_sizes/font_size = 32
+Heading/colors/font_color = Color(1.000, 0.820, 0.400, 1.0)
+Hint/base_type = &"Label"
+Hint/font_sizes/font_size = 16
+Hint/colors/font_color = Color(0.561, 0.580, 0.788, 1.0)
+NameTag/base_type = &"Label"
+NameTag/styles/normal = SubResource("sb_name")
+NameTag/colors/font_color = Color(0.102, 0.063, 0.188, 1.0)
+NameTag/colors/font_shadow_color = Color(1, 1, 1, 0.25)
+NameTag/constants/shadow_offset_x = 0
+NameTag/constants/shadow_offset_y = 2
+PromptTag/base_type = &"Label"
+PromptTag/styles/normal = SubResource("sb_chip_gold")
+PromptTag/font_sizes/font_size = 24
+PromptTag/colors/font_color = Color(1.000, 0.965, 0.839, 1.0)
+InsetLabel/base_type = &"Label"
+InsetLabel/styles/normal = SubResource("sb_inset")
+InsetLabel/font_sizes/font_size = 16
+InsetLabel/colors/font_color = Color(0.788, 0.804, 0.961, 1.0)
+HpText/base_type = &"Label"
+HpText/font_sizes/font_size = 16
+HpText/colors/font_color = Color(1.000, 1.000, 1.000, 1.0)
+HpText/colors/font_outline_color = Color(0.020, 0.024, 0.102, 1.0)
+HpText/constants/outline_size = 6
+ChipNavy/base_type = &"Label"
+ChipNavy/styles/normal = SubResource("sb_chip_navy")
+ChipNavy/font_sizes/font_size = 16
+ChipNavy/colors/font_color = Color(0.910, 0.922, 1.000, 1.0)
+ChipCyan/base_type = &"Label"
+ChipCyan/styles/normal = SubResource("sb_chip_cyan")
+ChipCyan/font_sizes/font_size = 16
+ChipCyan/colors/font_color = Color(0.749, 0.918, 1.000, 1.0)
+ChipViolet/base_type = &"Label"
+ChipViolet/styles/normal = SubResource("sb_chip_violet")
+ChipViolet/font_sizes/font_size = 16
+ChipViolet/colors/font_color = Color(0.863, 0.812, 1.000, 1.0)
+ChipGold/base_type = &"Label"
+ChipGold/styles/normal = SubResource("sb_chip_gold")
+ChipGold/font_sizes/font_size = 16
+ChipGold/colors/font_color = Color(1.000, 0.914, 0.659, 1.0)
+PanelContainer/styles/panel = SubResource("sb_panel")
+DialoguePanel/base_type = &"PanelContainer"
+DialoguePanel/styles/panel = SubResource("sb_dialog")
+HudPanel/base_type = &"PanelContainer"
+HudPanel/styles/panel = SubResource("sb_hud")
+InsetPanel/base_type = &"PanelContainer"
+InsetPanel/styles/panel = SubResource("sb_inset")
+BarFrame/base_type = &"PanelContainer"
+BarFrame/styles/panel = SubResource("sb_barframe")
+Button/colors/font_color = Color(0.910, 0.922, 1.000, 1.0)
+Button/colors/font_hover_color = Color(1.000, 0.820, 0.400, 1.0)
+Button/colors/font_focus_color = Color(1.000, 0.820, 0.400, 1.0)
+Button/colors/font_pressed_color = Color(1.000, 0.914, 0.659, 1.0)
+Button/colors/font_disabled_color = Color(0.420, 0.431, 0.588, 1.0)
+Button/colors/font_hover_pressed_color = Color(1.000, 0.914, 0.659, 1.0)
+Button/colors/font_shadow_color = Color(0, 0, 0, 0.6)
+Button/constants/shadow_offset_x = 2
+Button/constants/shadow_offset_y = 2
+Button/font_sizes/font_size = 24
+Button/styles/normal = SubResource("sb_bn")
+Button/styles/hover = SubResource("sb_bh")
+Button/styles/pressed = SubResource("sb_bp")
+Button/styles/disabled = SubResource("sb_bd")
+Button/styles/hover_pressed = SubResource("sb_bp")
+Button/styles/focus = SubResource("sb_bf")
+MenuButton/base_type = &"Button"
+MenuButton/font_sizes/font_size = 32
+HSeparator/constants/separation = 14
+HSeparator/styles/separator = SubResource("sb_sep")
+ProgressBar/styles/background = SubResource("sb_barbg")
+ProgressBar/styles/fill = SubResource("sb_fill_p")
+HPBarEnemy/base_type = &"ProgressBar"
+HPBarEnemy/styles/fill = SubResource("sb_fill_e")
+RichTextLabel/colors/default_color = Color(0.847, 0.863, 1.000, 1.0)
+RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/font_sizes/bold_font_size = 24
