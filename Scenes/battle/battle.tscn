@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://h1wekw1bdrhd" path="res://Scripts/battle/battle_manager.gd" id="4_manager"]
 [ext_resource type="PackedScene" path="res://Scenes/battle/enemy_view.tscn" id="5_enemy"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/dialogue_box.tscn" id="6_dialogue"]
+[ext_resource type="AudioStream" uid="uid://5wymkh2g60qy" path="res://Assets/music/BossFight1.mp3" id="6_wjqfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqg5c"]
 size = Vector2(800, 80)
@@ -280,3 +281,7 @@ shape = SubResource("RectangleShape2D_7jhgr")
 
 [node name="DialogueBox" parent="." unique_id=961447801 instance=ExtResource("6_dialogue")]
 layer = 20
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=851292462]
+stream = ExtResource("6_wjqfl")
+autoplay = true

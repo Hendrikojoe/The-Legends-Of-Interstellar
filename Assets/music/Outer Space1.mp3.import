@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4nq7nk40o0a5"
+path="res://.godot/imported/Outer Space1.mp3-3c26ac1b237ecd9963de9c5aa3f7a758.mp3str"
+
+[deps]
+
+source_file="res://Assets/music/Outer Space1.mp3"
+dest_files=["res://.godot/imported/Outer Space1.mp3-3c26ac1b237ecd9963de9c5aa3f7a758.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
