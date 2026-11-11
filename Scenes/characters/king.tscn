@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/components/interactable.gd" id="1_interact"]
+[ext_resource type="Texture2D" path="res://Assets/characters/king/king_side_left.png" id="2_king"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
+radius = 180.0
+
+[node name="King" type="Node2D"]
+script = ExtResource("1_interact")
+prompt_text = "[E] Bicara"
+
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("2_king")
+centered = false
+offset = Vector2(-750, -1500)
+
+[node name="InteractZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
+position = Vector2(0, -60)
+shape = SubResource("CircleShape2D_zone")
+
+[node name="Prompt" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -290.0
+offset_right = 60.0
+offset_bottom = -260.0
+theme_override_font_sizes/font_size = 22
+text = "[E] Bicara"
+horizontal_alignment = 1

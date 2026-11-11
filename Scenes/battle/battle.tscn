@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://h2oxx5l5u3i3"]
 
-[ext_resource type="Texture2D" uid="uid://dramvn7c6nwq3" path="res://Assets/background/2.png" id="1_bg"]
-[ext_resource type="PackedScene" uid="uid://bdg67fuptfuqb" path="res://Scenes/alto.tscn" id="3_alto"]
-[ext_resource type="Script" uid="uid://bp65ddk1l7psu" path="res://Scripts/battle/battle_manager.gd" id="4_manager"]
+[ext_resource type="Texture2D" uid="uid://dramvn7c6nwq3" path="res://Assets/backgrounds/forest_bridge.png" id="1_bg"]
+[ext_resource type="PackedScene" uid="uid://bdg67fuptfuqb" path="res://Scenes/characters/alto.tscn" id="3_alto"]
+[ext_resource type="Script" uid="uid://h1wekw1bdrhd" path="res://Scripts/battle/battle_manager.gd" id="4_manager"]
 [ext_resource type="PackedScene" path="res://Scenes/battle/enemy_view.tscn" id="5_enemy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqg5c"]
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_manager")
 enemy_id = "slimy"
-next_scene_on_win = "res://Scenes/chapter_2.tscn"
+next_scene_on_win = "res://Scenes/chapters/chapter_2.tscn"
 offer_mercy_choice = true
 
 [node name="Stage" type="Node2D" parent="."]

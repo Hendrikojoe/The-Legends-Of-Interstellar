@@ -4,5 +4,5 @@
 
 [node name="BattleHanpi" instance=ExtResource("1_base")]
 enemy_id = "hanpi"
-next_scene_on_win = "res://Scenes/to_be_continued.tscn"
+next_scene_on_win = "res://Scenes/chapters/to_be_continued.tscn"
 offer_mercy_choice = false

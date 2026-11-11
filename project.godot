@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://Scripts/game_state.gd"
-PauseMenu="*res://Scenes/pause_menu.tscn"
+GameState="*res://Scripts/core/game_state.gd"
+PauseMenu="*res://Scenes/ui/pause_menu.tscn"
 
 [display]
 
@@ -27,7 +27,7 @@ window/stretch/aspect="expand"
 
 [gui]
 
-theme/custom_font="res://Assets/PixelOverload_FontsBasicPack/Baskic8.otf"
+theme/custom_font="res://Assets/fonts/pixel_overload/Baskic8.otf"
 
 [input]
 

@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://Assets/characters/carrota/carrota.png" id="1_carrota"]
+
+[node name="Carrota" type="Node2D"]
+visible = false
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(19, -135)
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("1_carrota")

@@ -69,7 +69,7 @@ const ENEMIES := {
 	"slimy": {
 		"name": "Slimy",
 		"max_hp": 40,
-		"background": "res://Assets/background/2.png",
+		"background": "res://Assets/backgrounds/forest_bridge.png",
 		"display_height": 130.0,
 		"idle_bob": 0.0,
 		"frame_size": Vector2(517, 445),
@@ -130,7 +130,7 @@ const ENEMIES := {
 	"carrota": {
 		"name": "Carrota",
 		"max_hp": 48,
-		"background": "res://Assets/background/3.png",
+		"background": "res://Assets/backgrounds/carrot_village.png",
 		"display_height": 200.0,
 		"idle_bob": 3.0,
 		"frame_size": Vector2(416, 547),
@@ -198,7 +198,7 @@ const ENEMIES := {
 	"hanpi": {
 		"name": "Hanpi-hanpi",
 		"max_hp": 60,
-		"background": "res://Assets/background/4.png",
+		"background": "res://Assets/backgrounds/mirror_ruins.png",
 		"display_height": 190.0,
 		"idle_bob": 6.0,
 		"frame_size": Vector2(540, 543),

@@ -625,8 +625,8 @@ func _on_restart_pressed() -> void:
 
 
 func _on_menu_pressed() -> void:
-	if ResourceLoader.exists("res://Scenes/menu/main_menu.tscn"):
-		get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
+	if ResourceLoader.exists("res://Scenes/ui/main_menu.tscn"):
+		get_tree().change_scene_to_file("res://Scenes/ui/main_menu.tscn")
 
 
 func _on_destroy_pressed() -> void:
