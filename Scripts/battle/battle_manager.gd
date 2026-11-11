@@ -17,10 +17,19 @@ const BURN_DAMAGE := 3
 const SLOW_DAMAGE_MULT := 0.7
 const REFLECT_RATIO := 0.5
 
-const CARD_W := 118.0
-const CARD_H := 168.0
-const CARD_PEEK := 112.0   # tinggi kartu yang terlihat saat tidak di-hover
-const CARD_RAISE := 56.0   # kartu naik segini saat di-hover (CARD_PEEK + CARD_RAISE = CARD_H)
+## Ukuran kartu tangan Alto. Gambar asli 118x168 px; ubah CARD_SCALE untuk membesar/mengecilkan.
+const CARD_SCALE := 1.5
+const CARD_SRC_W := 118.0
+const CARD_SRC_H := 168.0
+const CARD_W := CARD_SRC_W * CARD_SCALE
+const CARD_H := CARD_SRC_H * CARD_SCALE
+const CARD_PEEK := CARD_H * 2.0 / 3.0    # tinggi kartu yang terlihat saat tidak di-hover
+const CARD_RAISE := CARD_H - CARD_PEEK   # kartu naik segini saat di-hover (CARD_PEEK + CARD_RAISE = CARD_H)
+## Area kosong (kotak coklat) di gambar kartu tempat deskripsi ditulis, dalam piksel gambar asli.
+const CARD_TEXT_RECT := Rect2(23.0, 112.0, 72.0, 45.0)
+## Ukuran font deskripsi: dicoba dari terbesar, mengecil otomatis sampai teks muat di area kartu.
+const CARD_TEXT_MAX_FONT := 16
+const CARD_TEXT_MIN_FONT := 8
 
 const COLOR_HIT := Color(1.0, 0.3, 0.3)
 const COLOR_BLOCK := Color(0.4, 0.8, 1.0)
@@ -108,6 +117,12 @@ func _ready() -> void:
 
 	background.texture = load(str(enemy["background"])) as Texture2D
 	enemy_view.setup(enemy_id, enemy)
+
+	# Tinggi area tangan mengikuti ukuran kartu (CARD_SCALE).
+	hand_container.offset_top = -CARD_PEEK
+	var hand_space := get_node_or_null("HUD/Layout/HandSpace") as Control
+	if hand_space:
+		hand_space.custom_minimum_size.y = CARD_PEEK
 
 	restart_button.pressed.connect(_on_restart_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
@@ -443,18 +458,38 @@ func _make_card_widget(card: Dictionary, index: int) -> Control:
 	# Gambar kartu Alto belum punya teks deskripsi, jadi ditulis oleh kode di area kosong.
 	var text := str(card.get("text", ""))
 	if not text.is_empty():
+		var area: Vector2 = CARD_TEXT_RECT.size * CARD_SCALE
 		var label := Label.new()
-		label.text = text
-		label.position = Vector2(20.0, 104.0)
-		label.size = Vector2(78.0, 56.0)
+		# PENTING: aktifkan wrap & atur font SEBELUM ukuran diisi. Kalau size diisi lebih dulu,
+		# Godot melebarkan label sesuai teks satu baris sehingga teks keluar dari kartu.
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		# (Jangan pakai clip_text: huruf font Baskic8 lebih tinggi dari ascent-nya sehingga ujungnya terpotong.)
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		label.add_theme_font_size_override("font_size", 11)
+		label.add_theme_font_size_override("font_size", _fit_card_font_size(label, text, area))
 		label.add_theme_color_override("font_color", Color(0.22, 0.12, 0.06))
+		label.add_theme_constant_override("line_spacing", 1)
+		label.text = text
+		label.custom_minimum_size = area
+		label.position = CARD_TEXT_RECT.position * CARD_SCALE
+		label.size = area
 		button.add_child(label)
 
 	slot.add_child(button)
 	return slot
+
+
+## Cari ukuran font terbesar yang membuat teks (setelah di-wrap) muat di dalam area deskripsi kartu.
+func _fit_card_font_size(label: Label, text: String, area: Vector2) -> int:
+	var font: Font = label.get_theme_default_font()
+	if font == null:
+		return CARD_TEXT_MIN_FONT
+	for font_size in range(CARD_TEXT_MAX_FONT, CARD_TEXT_MIN_FONT - 1, -1):
+		var needed: Vector2 = font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, area.x, font_size)
+		var line_h: float = font.get_height(font_size)
+		var lines: float = maxf(roundf(needed.y / line_h), 1.0)
+		if needed.y + (lines - 1.0) * 1.0 <= area.y:
+			return font_size
+	return CARD_TEXT_MIN_FONT
 
 
 func _on_card_hover(button: TextureButton, hovered: bool) -> void:
