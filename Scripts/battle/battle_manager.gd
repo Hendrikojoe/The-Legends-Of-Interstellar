@@ -98,6 +98,7 @@ var _leaving: bool = false
 @onready var choice_container: HBoxContainer = %ChoiceContainer
 @onready var destroy_button: Button = %DestroyButton
 @onready var forgive_button: Button = %ForgiveButton
+@onready var dialogue_box = get_node_or_null("DialogueBox")
 
 
 func _ready() -> void:
@@ -160,6 +161,9 @@ func start_battle() -> void:
 	overlay.hide()
 	choice_container.hide()
 	actions_row.show()
+	hand_container.show()
+	if dialogue_box and dialogue_box.is_active:
+		dialogue_box._close()
 
 	_log("[b]Battle dimulai![/b] Melawan %s." % enemy_name)
 	_begin_player_turn(true)
@@ -588,12 +592,7 @@ func _check_end() -> bool:
 		_set_hand_buttons_disabled(true)
 		_log("[b][color=green]Kamu menang![/color][/b]")
 		enemy_view.play_defeat()
-		_show_result(true)
-		battle_ended.emit(true)
-		if offer_mercy_choice:
-			choice_container.show()
-		else:
-			_auto_continue()
+		_on_battle_won()
 		return true
 	if player_hp <= 0:
 		state = State.LOST
@@ -604,6 +603,31 @@ func _check_end() -> bool:
 		battle_ended.emit(false)
 		return true
 	return false
+
+
+func _on_battle_won() -> void:
+	if offer_mercy_choice and dialogue_box:
+		hand_container.hide()
+		await get_tree().create_timer(0.8, false).timeout
+		var lines := [
+			{
+				"speaker": "Alto",
+				"text": "akhk itu cukup kuat sekali",
+			},
+			{
+				"speaker": enemy_name if not enemy_name.is_empty() else "Slimy",
+				"text": "ampun jangan bunuh aku aku menyerah",
+			},
+		]
+		dialogue_box.start(lines)
+		await dialogue_box.dialogue_finished
+
+	_show_result(true)
+	battle_ended.emit(true)
+	if offer_mercy_choice:
+		choice_container.show()
+	else:
+		_auto_continue()
 
 
 func _show_result(player_won: bool) -> void:

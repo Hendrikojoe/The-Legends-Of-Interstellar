@@ -35,6 +35,14 @@ extends Node2D
 # TEKS CERITA - edit di sini. speaker kosong ("") = narasi tanpa nama.
 # ------------------------------------------------------------------
 
+## Dialog saat Alto berjalan dan merasa sangat lapar di tengah jalan.
+const DIALOGUE_HUNGER := [
+	{
+		"speaker": "Alto",
+		"text": "aduh aku sangat lapar ,sekali ",
+	},
+]
+
 ## Sebelum pilihan. (Teks ini draf dari saya, silakan ganti.)
 const DIALOGUE_BEFORE_CHOICE := [
 	{
@@ -126,6 +134,7 @@ const GAME_OVER_MESSAGE := "Alto tumbang di tengah jalan sebelum sempat menyelam
 
 var _intro_playing: bool = false
 var _intro_tween: Tween
+var _hunger_triggered: bool = false
 
 @onready var alto = $Alto
 @onready var vegetables = $Vegetables
@@ -135,11 +144,14 @@ var _intro_tween: Tween
 @onready var game_over = $GameOver
 @onready var fade: ColorRect = $IntroLayer/Fade
 @onready var title_box: Control = $IntroLayer/TitleBox
+@onready var hunger_trigger: Area2D = $HungerTrigger
 
 
 func _ready() -> void:
 	alto.camera.limit_right = camera_limit_right
 	vegetables.interacted.connect(_on_vegetables_interacted)
+	if hunger_trigger:
+		hunger_trigger.body_entered.connect(_on_hunger_trigger_body_entered)
 	_play_intro()
 
 
@@ -183,6 +195,22 @@ func _on_intro_finished() -> void:
 	alto.camera.offset = camera_final_offset
 	alto.can_move = true
 	vegetables.enabled = true
+
+
+# -------------------------------------------------------- Trigger Lapar
+
+func _on_hunger_trigger_body_entered(body: Node2D) -> void:
+	if _hunger_triggered or _intro_playing:
+		return
+	if not body.is_in_group("player"):
+		return
+	_hunger_triggered = true
+	if is_instance_valid(hunger_trigger):
+		hunger_trigger.set_deferred("monitoring", false)
+	alto.can_move = false
+	alto.velocity.x = 0.0
+	await _say(DIALOGUE_HUNGER)
+	alto.can_move = true
 
 
 # ------------------------------------------------------ Sayuran & pilihan

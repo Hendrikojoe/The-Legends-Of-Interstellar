@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dpey3eavliphp"]
 
-[ext_resource type="Script" path="res://Scripts/chapters/chapter_2.gd" id="1_chapter"]
-[ext_resource type="Texture2D" path="res://Assets/backgrounds/carrot_village.png" id="2_bg"]
-[ext_resource type="PackedScene" path="res://Scenes/characters/alto.tscn" id="3_alto"]
+[ext_resource type="Script" uid="uid://ew41ns6tahsj" path="res://Scripts/chapters/chapter_2.gd" id="1_chapter"]
+[ext_resource type="Texture2D" uid="uid://ctwm7q0b1hjtp" path="res://Assets/backgrounds/carrot_village.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://bdg67fuptfuqb" path="res://Scenes/characters/alto.tscn" id="3_alto"]
 [ext_resource type="PackedScene" path="res://Scenes/props/vegetables.tscn" id="4_veg"]
 [ext_resource type="PackedScene" path="res://Scenes/characters/carrota.tscn" id="5_carrota"]
 [ext_resource type="PackedScene" path="res://Scenes/ui/dialogue_box.tscn" id="6_dialogue"]
@@ -15,53 +15,61 @@ size = Vector2(1500, 80)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(40, 2400)
 
-[node name="Chapter2" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hunger"]
+size = Vector2(60, 240)
+
+[node name="Chapter2" type="Node2D" unique_id=1605531206]
 script = ExtResource("1_chapter")
 next_scene = "res://Scenes/battle/battle_carrota.tscn"
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="." unique_id=594039356]
 position = Vector2(0, -528)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_bg")
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1333370208]
 position = Vector2(350, 40)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1935175114]
 shape = SubResource("RectangleShape2D_ground")
 
-[node name="WallLeft" type="StaticBody2D" parent="."]
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=2065619423]
 position = Vector2(-320, -1000)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=1755056739]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="WallRight" type="StaticBody2D" parent="."]
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=766223238]
 position = Vector2(1020, -1000)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=2036326903]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="Vegetables" parent="." instance=ExtResource("4_veg")]
+[node name="HungerTrigger" type="Area2D" parent="." unique_id=307900390]
+position = Vector2(100, -54)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HungerTrigger" unique_id=2065864115]
+shape = SubResource("RectangleShape2D_hunger")
+
+[node name="Vegetables" parent="." unique_id=1195393052 instance=ExtResource("4_veg")]
 position = Vector2(720, 0)
 
-[node name="Carrota" parent="." instance=ExtResource("5_carrota")]
+[node name="Carrota" parent="." unique_id=1153039382 instance=ExtResource("5_carrota")]
 position = Vector2(-583, 0)
 
-[node name="Alto" parent="." instance=ExtResource("3_alto")]
-position = Vector2(0, 0)
+[node name="Alto" parent="." unique_id=1649755245 instance=ExtResource("3_alto")]
 
-[node name="DialogueBox" parent="." instance=ExtResource("6_dialogue")]
+[node name="DialogueBox" parent="." unique_id=267732816 instance=ExtResource("6_dialogue")]
 layer = 30
 
-[node name="ChoiceBox" parent="." instance=ExtResource("7_choice")]
+[node name="ChoiceBox" parent="." unique_id=538862805 instance=ExtResource("7_choice")]
 
-[node name="GameOver" parent="." instance=ExtResource("8_gameover")]
+[node name="GameOver" parent="." unique_id=730932668 instance=ExtResource("8_gameover")]
 
-[node name="IntroLayer" type="CanvasLayer" parent="."]
+[node name="IntroLayer" type="CanvasLayer" parent="." unique_id=626489046]
 layer = 20
 
-[node name="Fade" type="ColorRect" parent="IntroLayer"]
+[node name="Fade" type="ColorRect" parent="IntroLayer" unique_id=665824661]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -70,7 +78,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TitleBox" type="VBoxContainer" parent="IntroLayer"]
+[node name="TitleBox" type="VBoxContainer" parent="IntroLayer" unique_id=356170150]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -80,13 +88,13 @@ mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ChapterLabel" type="Label" parent="IntroLayer/TitleBox"]
+[node name="ChapterLabel" type="Label" parent="IntroLayer/TitleBox" unique_id=1414645184]
 layout_mode = 2
 theme_override_font_sizes/font_size = 88
 text = "CHAPTER 2"
 horizontal_alignment = 1
 
-[node name="SubtitleLabel" type="Label" parent="IntroLayer/TitleBox"]
+[node name="SubtitleLabel" type="Label" parent="IntroLayer/TitleBox" unique_id=756621147]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Sang Koki Sayuran"

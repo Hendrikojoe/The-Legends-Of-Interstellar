@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dro6bwggwbl18"]
+
+[ext_resource type="Texture2D" uid="uid://dramvn7c6nwq3" path="res://Assets/backgrounds/forest_bridge.png" id="1_x7jy7"]
+[ext_resource type="PackedScene" uid="uid://bdg67fuptfuqb" path="res://Scenes/characters/alto.tscn" id="2_jyux5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrhun"]
+size = Vector2(800, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onva0"]
+size = Vector2(40, 2400)
+
+[node name="Chapter1_end" type="Node2D" unique_id=1815276244]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=211269716]
+position = Vector2(510.24994, 244.25)
+scale = Vector2(0.65859365, 0.7236111)
+texture = ExtResource("1_x7jy7")
+
+[node name="Alto" parent="." unique_id=1182779722 instance=ExtResource("2_jyux5")]
+position = Vector2(548, 396)
+scale = Vector2(0.61041665, 0.5879629)
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1442535723]
+position = Vector2(900, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=946042203]
+position = Vector2(-201, 410)
+shape = SubResource("RectangleShape2D_hrhun")
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=2080895965]
+position = Vector2(580, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=1789573541]
+position = Vector2(-246, 401)
+shape = SubResource("RectangleShape2D_onva0")
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=1750502411]
+position = Vector2(1220, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=588113363]
+position = Vector2(-371, 626)
+shape = SubResource("RectangleShape2D_onva0")

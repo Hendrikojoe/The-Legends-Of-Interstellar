@@ -33,7 +33,7 @@ texture = SubResource("GradientTexture2D_sky")
 expand_mode = 1
 
 [node name="Background" type="Sprite2D" parent="Sky" unique_id=584264643]
-position = Vector2(2206.4998, 1291)
+position = Vector2(2198, 1712)
 scale = Vector2(2.277604, 2.4037037)
 texture = ExtResource("2_hha4p")
 

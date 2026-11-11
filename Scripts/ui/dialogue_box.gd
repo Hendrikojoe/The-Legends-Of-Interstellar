@@ -19,6 +19,18 @@ var _tween: Tween
 
 func _ready() -> void:
 	panel.hide()
+	panel.gui_input.connect(_on_panel_gui_input)
+
+
+func _on_panel_gui_input(event: InputEvent) -> void:
+	if not is_active:
+		return
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		get_viewport().set_input_as_handled()
+		if _typing:
+			_finish_typing()
+		else:
+			_next_line()
 
 
 func start(lines: Array) -> void:
@@ -34,7 +46,8 @@ func start(lines: Array) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_active:
 		return
-	if event.is_action_pressed("interact") or event.is_action_pressed("ui_accept"):
+	var is_click: bool = event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT
+	if event.is_action_pressed("interact") or event.is_action_pressed("ui_accept") or is_click:
 		get_viewport().set_input_as_handled()
 		if _typing:
 			_finish_typing()
