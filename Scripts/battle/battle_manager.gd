@@ -255,7 +255,7 @@ func _on_card_pressed(index: int) -> void:
 		return
 
 	# Jeda sejenak sebelum musuh membalas.
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	if state != State.ACTION_RESOLVING:
 		return
 	await _begin_enemy_turn()
@@ -322,7 +322,7 @@ func _begin_enemy_turn() -> void:
 	_refresh_ui()
 	_log("[color=orange]- Giliran %s -[/color]" % enemy_name)
 
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3, false).timeout
 	await _execute_enemy_skill()
 	_refresh_ui()
 
@@ -330,7 +330,7 @@ func _begin_enemy_turn() -> void:
 		return
 
 	# Jeda sebelum kembali ke giliran pemain.
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	_begin_player_turn(false)
 
 
@@ -615,7 +615,7 @@ func _show_result(player_won: bool) -> void:
 
 
 func _auto_continue() -> void:
-	await get_tree().create_timer(1.6).timeout
+	await get_tree().create_timer(1.6, false).timeout
 	if state == State.WON and not _leaving:
 		_continue_after_battle()
 
@@ -646,7 +646,7 @@ func _continue_after_battle() -> void:
 	choice_container.hide()
 	actions_row.hide()
 	result_label.text = "Alto melanjutkan perjalanan..."
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.2, false).timeout
 	if next_scene_on_win.is_empty():
 		print("[Battle] next_scene_on_win belum diisi (scene %s)." % scene_file_path)
 		actions_row.show()

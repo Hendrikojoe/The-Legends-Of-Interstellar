@@ -158,7 +158,7 @@ func play_skill(skill: Dictionary, target_global: Vector2, on_impact: Callable) 
 	if has_anim:
 		body.play(anim)
 
-	await get_tree().create_timer(float(skill.get("release_ms", 300)) / 1000.0).timeout
+	await get_tree().create_timer(float(skill.get("release_ms", 300)) / 1000.0, false).timeout
 	await _play_fx(skill, target_global)
 	if on_impact.is_valid():
 		on_impact.call()
@@ -166,7 +166,7 @@ func play_skill(skill: Dictionary, target_global: Vector2, on_impact: Callable) 
 	if has_anim and body.animation == StringName(anim) and body.is_playing():
 		await body.animation_finished
 	body.play(&"idle")
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.15, false).timeout
 
 
 func _play_fx(skill: Dictionary, target_global: Vector2) -> void:
@@ -217,7 +217,7 @@ func _fx_projectile(fx: Dictionary, target_global: Vector2) -> void:
 		last_tween = tween
 
 		if i < textures.size() - 1:
-			await get_tree().create_timer(0.14).timeout
+			await get_tree().create_timer(0.14, false).timeout
 
 	if last_tween != null:
 		await last_tween.finished
