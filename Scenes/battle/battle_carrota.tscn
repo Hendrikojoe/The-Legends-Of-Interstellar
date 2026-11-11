@@ -1,8 +1,20 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://blp7vk1ocg7ex"]
 
 [ext_resource type="PackedScene" uid="uid://h2oxx5l5u3i3" path="res://Scenes/battle/battle.tscn" id="1_base"]
 
-[node name="BattleCarrota" instance=ExtResource("1_base")]
+[node name="BattleCarrota" unique_id=786082032 instance=ExtResource("1_base")]
 enemy_id = "carrota"
 next_scene_on_win = "res://Scenes/chapters/chapter_3.tscn"
 offer_mercy_choice = false
+
+[node name="Background" parent="Stage" parent_id_path=PackedInt32Array(111664719) index="0" unique_id=1061686999]
+position = Vector2(438, 177.99997)
+scale = Vector2(0.7786459, 0.72175926)
+
+[node name="ColorRect" type="ColorRect" parent="." index="6" unique_id=538493037]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 546.0
+offset_right = 1223.0
+offset_bottom = 683.0
+color = Color(0.8581095, 0.55252755, 0.16569069, 1)

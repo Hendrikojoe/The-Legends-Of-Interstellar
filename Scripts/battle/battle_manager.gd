@@ -41,6 +41,8 @@ const COLOR_HEAL := Color(0.4, 1.0, 0.5)
 @export_file("*.tscn") var next_scene_on_win: String = ""
 ## true = setelah menang muncul pilihan Hancurkan / Maafkan (khusus Slimy).
 @export var offer_mercy_choice: bool = false
+## Dialog kemenangan khusus (opsional). Jika diisi di Inspector, dialog ini yang akan dipakai.
+@export var custom_victory_dialogue: Array[Dictionary] = []
 
 var state: State = State.PLAYER_TURN
 var turn_count: int = 1
@@ -606,28 +608,85 @@ func _check_end() -> bool:
 
 
 func _on_battle_won() -> void:
-	if offer_mercy_choice and dialogue_box:
+	var lines: Array = _get_victory_dialogue()
+	if not lines.is_empty() and dialogue_box:
 		hand_container.hide()
 		await get_tree().create_timer(0.8, false).timeout
-		var lines := [
-			{
-				"speaker": "Alto",
-				"text": "akhk itu cukup kuat sekali",
-			},
-			{
-				"speaker": enemy_name if not enemy_name.is_empty() else "Slimy",
-				"text": "ampun jangan bunuh aku aku menyerah",
-			},
-		]
 		dialogue_box.start(lines)
 		await dialogue_box.dialogue_finished
 
-	_show_result(true)
 	battle_ended.emit(true)
 	if offer_mercy_choice:
+		_show_result(true)
 		choice_container.show()
 	else:
-		_auto_continue()
+		_continue_after_battle()
+
+
+func _get_victory_dialogue() -> Array:
+	if not custom_victory_dialogue.is_empty():
+		return custom_victory_dialogue
+
+	match enemy_id:
+		"slimy":
+			return [
+				{
+					"speaker": "Alto",
+					"text": "akhk itu cukup kuat sekali",
+				},
+				{
+					"speaker": enemy_name if not enemy_name.is_empty() else "Slimy",
+					"text": "ampun jangan bunuh aku aku menyerah",
+				},
+			]
+		"carrota":
+			return [
+				{
+					"speaker": "Carrota",
+					"text": "Ugh... sup andalanku... bagaimana bisa kau mengalahkanku...",
+				},
+				{
+					"speaker": "Alto",
+					"text": "Maafkan aku, Koki Carrota. Aku benar-benar tidak berniat jahat. Aku hanya sangat kelaparan dalam perjalanan menyelamatkan Putri Ellie.",
+				},
+				{
+					"speaker": "Carrota",
+					"text": "Menyelamatkan Putri Ellie...? Hah, kenapa tidak bilang dari tadi! Koki sejati tidak akan membiarkan seorang pejuang kelaparan.",
+				},
+				{
+					"speaker": "Carrota",
+					"text": "Ambillah sayuranku dan makanlah sampai kenyang untuk bekalmu ke goa Brok.",
+				},
+				{
+					"speaker": "Alto",
+					"text": "Terima kasih banyak, Koki Carrota! Aku akan segera melanjutkan perjalanan!",
+				},
+			]
+		"hanpi":
+			return [
+				{
+					"speaker": "Hanpi-hanpi",
+					"text": "T-tidak mungkin... Sihir cerminku... hancur berkeping-keping?!",
+				},
+				{
+					"speaker": "Alto",
+					"text": "Permainan cerminmu sudah berakhir, Hanpi-hanpi! Cepat katakan, di mana Putri Ellie disekap?!",
+				},
+				{
+					"speaker": "Hanpi-hanpi",
+					"text": "Hihihi... Hebat sekali, Bintang Kecil. Kau berhasil menembus ilusi terdalamku...",
+				},
+				{
+					"speaker": "Hanpi-hanpi",
+					"text": "Jalan di balik reruntuhan ini akan membawamu langsung ke Goa Brok... Tapi di sana, kegelapan yang sesungguhnya sudah menantimu!",
+				},
+				{
+					"speaker": "Alto",
+					"text": "Aku tidak akan gentar. Demi Putri Ellie dan kedamaian dunia, aku akan terus melangkah!",
+				},
+			]
+		_:
+			return []
 
 
 func _show_result(player_won: bool) -> void:
@@ -669,6 +728,7 @@ func _continue_after_battle() -> void:
 	_leaving = true
 	choice_container.hide()
 	actions_row.hide()
+	overlay.show()
 	result_label.text = "Alto melanjutkan perjalanan..."
 	await get_tree().create_timer(1.2, false).timeout
 	if next_scene_on_win.is_empty():

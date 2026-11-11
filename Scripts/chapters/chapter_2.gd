@@ -39,7 +39,16 @@ extends Node2D
 const DIALOGUE_HUNGER := [
 	{
 		"speaker": "Alto",
-		"text": "aduh aku sangat lapar ,sekali ",
+		"text": "*ahrek.... dimana ini????*",
+	},
+	
+	{
+		"speaker": "Alto",
+		"text": "aduh aku sangat lapar ,sekali",
+	},
+	{
+		"speaker": "Alto",
+		"text": "Sudah berhari-hari aku berjalan dengan perut kosong..",
 	},
 ]
 
@@ -47,11 +56,15 @@ const DIALOGUE_HUNGER := [
 const DIALOGUE_BEFORE_CHOICE := [
 	{
 		"speaker": "Alto",
-		"text": "Perutku... sudah tidak kuat lagi. Sudah berhari-hari aku berjalan tanpa makan.",
+		"text": "Perutku... sudah tidak kuat lagi..",
 	},
 	{
 		"speaker": "Alto",
-		"text": "Itu... sayuran? Tidak ada siapa pun di sekitar sini. Sepertinya tumbuh liar...",
+		"text": "ini... sayuran? Tidak ada siapa pun di sekitar sini. Sepertinya tumbuh liar...",
+	},
+	{
+		"speaker": "Alto",
+		"text": "Ahh.. aku ambil saja deh, sepertinya memang tumbuhan liar.",
 	},
 ]
 
@@ -62,7 +75,7 @@ const CHOICES := ["Ambil sayuran", "Jangan diambil"]
 const DIALOGUE_TAKE_BEFORE_CARROTA := [
 	{
 		"speaker": "Alto",
-		"text": "Syukurlah... Perutku sudah tidak tertahan lagi. Aku hanya mengambil sedikit saja, semoga pemiliknya tidak keberatan.",
+		"text": "Syukurlah... Perutku sudah tidak tertahan lagi. Aku hanya mengambil sedikit saja, sisa nya aku simpan saja buat nanti.",
 	},
 ]
 

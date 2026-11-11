@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://wxlk31v86xs0"]
 
 [ext_resource type="PackedScene" uid="uid://h2oxx5l5u3i3" path="res://Scenes/battle/battle.tscn" id="1_base"]
 
-[node name="BattleHanpi" instance=ExtResource("1_base")]
+[node name="BattleHanpi" unique_id=1149213152 instance=ExtResource("1_base")]
 enemy_id = "hanpi"
 next_scene_on_win = "res://Scenes/chapters/to_be_continued.tscn"
 offer_mercy_choice = false

@@ -10,11 +10,11 @@ const DIALOGUE := [
 	},
 	{
 		"speaker": "Alto",
-		"text": "Lebih baik aku langsung melanjutkan perjalanan.",
+		"text": "*Grrr...* Ah, perutkuu... Kok tiba-tiba aku lapar sekali ya? Semoga di jalan nanti ada sesuatu yang bisa ku makan...",
 	},
 	{
 		"speaker": "Alto",
-		"text": "*Grrr...* Ah, perutku berbunyi... Kok tiba-tiba aku lapar sekali ya? Semoga di jalan nanti ada makanan...",
+		"text": "Lebih baik aku melanjutkan perjalanan.",
 	},
 ]
 
@@ -55,4 +55,3 @@ func _end_scene() -> void:
 
 	if not next_scene.is_empty():
 		get_tree().change_scene_to_file(next_scene)
-
