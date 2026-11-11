@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://b2f346thqdvxc"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_06t4h"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btn"]
 
 [sub_resource type="Theme" id="Theme_menu"]
@@ -29,8 +27,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_menu")
-script = ExtResource("1_06t4h")
-play_scene = "res://Scenes/prolog.tscn"
 
 [node name="Background" type="TextureRect" parent="." unique_id=261895627]
 layout_mode = 1

@@ -17,7 +17,7 @@ Alto, berbekal kristal dari Raja Interstellar, berangkat mencari Putri Ellie dan
 
 ```
 Menu Utama -> Prolog -> Chapter 1 -> Battle Slimy -> Chapter 2 -> Battle Carrota
-          -> Chapter 3 -> Battle Hanpi-hanpi -> To Be Continued -> Menu Utama
+		  -> Chapter 3 -> Battle Hanpi-hanpi -> To Be Continued -> Menu Utama
 ```
 Setiap scene menyimpan tujuan berikutnya di properti Inspector `next_scene` / `next_scene_on_win`.
 
@@ -27,13 +27,13 @@ Setiap scene menyimpan tujuan berikutnya di properti Inspector `next_scene` / `n
 Assets/                 Semua aset yang dipakai game (diimpor Godot)
   backgrounds/          Latar tiap lokasi (castle_interstellar, forest_bridge, carrot_village, mirror_ruins, ...)
   battle/               Aset khusus battle
-    cards/              Gambar kartu (alto_*, slimy_*, carrota_*, hanpi_*)
-    enemies/<musuh>/    Frame animasi musuh: idle_1.png, throw_1.png, ... (dibaca otomatis oleh enemy_view.gd)
-    props/              Benda yang dilempar/efek (carrot, chili_sauce, slimy_glob, ...)
+	cards/              Gambar kartu (alto_*, slimy_*, carrota_*, hanpi_*)
+	enemies/<musuh>/    Frame animasi musuh: idle_1.png, throw_1.png, ... (dibaca otomatis oleh enemy_view.gd)
+	props/              Benda yang dilempar/efek (carrot, chili_sauce, slimy_glob, ...)
   characters/           Sprite karakter di dunia/cerita
-    alto/form_1..3/     Alto: neutral, happy, mad, sad, shocked
-    king/               Raja Interstellar: king_front, king_back, king_side_left, king_side_right
-    slimy/ carrota/ hanpi/
+	alto/form_1..3/     Alto: neutral, happy, mad, sad, shocked
+	king/               Raja Interstellar: king_front, king_back, king_side_left, king_side_right
+	slimy/ carrota/ hanpi/
   fonts/pixel_overload/ Font (Baskic8 = font utama game)
 Scenes/
   chapters/             prolog, chapter_1..3, to_be_continued
@@ -50,7 +50,7 @@ Scripts/                Struktur sama dengan Scenes
   ui/                   skrip menu & kotak dialog
   battle/               battle_data (data kartu & musuh), battle_manager, enemy_view
 SourceArt/              File mentah (.clip, .aseprite) & ekspor animasi (.webp). Di-.gdignore:
-                        tidak diimpor Godot dan tidak ikut export. Hapus .gdignore jika ingin memakainya.
+						tidak diimpor Godot dan tidak ikut export. Hapus .gdignore jika ingin memakainya.
 ```
 
 ## Konvensi
