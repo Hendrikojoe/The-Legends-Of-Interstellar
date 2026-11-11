@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dro6bwggwbl18"]
 
+[ext_resource type="Script" path="res://Scripts/chapters/chapter_1_end.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dramvn7c6nwq3" path="res://Assets/backgrounds/forest_bridge.png" id="1_x7jy7"]
 [ext_resource type="PackedScene" uid="uid://bdg67fuptfuqb" path="res://Scenes/characters/alto.tscn" id="2_jyux5"]
+[ext_resource type="PackedScene" path="res://Scenes/ui/dialogue_box.tscn" id="4_dialogue"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrhun"]
 size = Vector2(800, 80)
@@ -10,6 +12,8 @@ size = Vector2(800, 80)
 size = Vector2(40, 2400)
 
 [node name="Chapter1_end" type="Node2D" unique_id=1815276244]
+script = ExtResource("1_script")
+next_scene = "res://Scenes/chapters/chapter_2.tscn"
 
 [node name="Background" type="Sprite2D" parent="." unique_id=211269716]
 position = Vector2(510.24994, 244.25)
@@ -40,3 +44,18 @@ position = Vector2(1220, -1000)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=588113363]
 position = Vector2(-371, 626)
 shape = SubResource("RectangleShape2D_onva0")
+
+[node name="DialogueBox" parent="." instance=ExtResource("4_dialogue")]
+layer = 20
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="Fade" type="ColorRect" parent="FadeLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

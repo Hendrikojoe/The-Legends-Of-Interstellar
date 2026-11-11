@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_manager")
 enemy_id = "slimy"
-next_scene_on_win = "res://Scenes/chapters/chapter_2.tscn"
+next_scene_on_win = "res://Scenes/chapters/chapter_1_end.tscn"
 offer_mercy_choice = true
 
 [node name="Stage" type="Node2D" parent="." unique_id=111664719]
