@@ -4,21 +4,35 @@ extends Control
 @export_file("*.tscn") var deck_scene: String = ""
 @export_file("*.tscn") var settings_scene: String = ""
 
-@onready var background: VideoStreamPlayer = $Background
+@onready var background: Node = $Background
 @onready var play_button: Button = $Content/Layout/MenusButtons/PlayButton
-@onready var deck_button: Button = $Content/Layout/MenusButtons/DeckButton
+
 @onready var settings_button: Button = $Content/Layout/MenusButtons/SettingsButton
 @onready var quit_button: Button = $Content/Layout/MenusButtons/QuitButton
 
 
 func _ready() -> void:
 	# Video latar di-loop lewat properti `loop`; sambungan ini cadangan untuk versi Godot yang tidak mengulang otomatis.
-	background.finished.connect(background.play)
+	if background is VideoStreamPlayer:
+		background.finished.connect(background.play)
 	play_button.pressed.connect(_on_play_pressed)
-	deck_button.pressed.connect(_on_deck_pressed)
+	
 	settings_button.pressed.connect(_on_settings_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	play_button.grab_focus()
+	_connect_pause_menu()
+
+
+func _connect_pause_menu() -> void:
+	if has_node("/root/PauseMenu"):
+		var pause_menu = get_node("/root/PauseMenu")
+		if pause_menu.has_signal("closed") and not pause_menu.closed.is_connected(_on_pause_menu_closed):
+			pause_menu.closed.connect(_on_pause_menu_closed)
+
+
+func _on_pause_menu_closed() -> void:
+	if is_inside_tree() and is_visible_in_tree() and is_instance_valid(settings_button):
+		settings_button.grab_focus()
 
 
 func _on_play_pressed() -> void:
@@ -30,7 +44,26 @@ func _on_deck_pressed() -> void:
 
 
 func _on_settings_pressed() -> void:
-	_go_to_scene(settings_scene, "Settings")
+	if settings_scene.is_empty() or settings_scene.ends_with("pause_menu.tscn"):
+		_show_pause_menu()
+	else:
+		_go_to_scene(settings_scene, "Settings")
+
+
+func _show_pause_menu() -> void:
+	if has_node("/root/PauseMenu"):
+		var pause_menu = get_node("/root/PauseMenu")
+		_connect_pause_menu()
+		pause_menu.open()
+	else:
+		var pause_scene = load("res://Scenes/ui/pause_menu.tscn")
+		if pause_scene:
+			var pause_instance = pause_scene.instantiate()
+			pause_instance.name = "PauseMenu"
+			get_tree().root.add_child(pause_instance)
+			_connect_pause_menu()
+			if pause_instance.has_method("open"):
+				pause_instance.open()
 
 
 func _on_quit_pressed() -> void:

@@ -6,7 +6,11 @@ extends CanvasLayer
 ## battle, animasi) berhenti lewat get_tree().paused; hanya menu ini yang tetap berjalan
 ## (process_mode = Always).
 
+signal opened
+signal closed
+
 const MENU_SCENE := "res://Scenes/ui/main_menu.tscn"
+const ROOT_MENU_SCENE := "res://main_menu.tscn"
 const PAUSE_ACTION := "pause"
 
 @onready var resume_button: Button = %ResumeButton
@@ -38,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Pause hanya saat sedang bermain (bukan di Menu Utama / saat belum ada scene).
 func _can_pause() -> bool:
 	var scene := get_tree().current_scene
-	return scene != null and scene.scene_file_path != MENU_SCENE
+	return scene != null and scene.scene_file_path != MENU_SCENE and scene.scene_file_path != ROOT_MENU_SCENE
 
 
 func open() -> void:
@@ -47,6 +51,7 @@ func open() -> void:
 	get_tree().paused = true
 	show()
 	resume_button.grab_focus()
+	opened.emit()
 
 
 func close() -> void:
@@ -54,6 +59,7 @@ func close() -> void:
 		return
 	hide()
 	get_tree().paused = false
+	closed.emit()
 
 
 func _on_restart_pressed() -> void:

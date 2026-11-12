@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://b2f346thqdvxc"]
 
+[ext_resource type="Script" uid="uid://36usha51r4bn" path="res://Scripts/ui/main_menu.gd" id="1_menu"]
+[ext_resource type="VideoStream" path="res://Assets/backgrounds/main_menu_loop.ogv" id="2_video"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btn"]
 
 [sub_resource type="Theme" id="Theme_menu"]
@@ -27,8 +30,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_menu")
+script = ExtResource("1_menu")
+play_scene = "res://Scenes/chapters/prolog.tscn"
+settings_scene = "res://Scenes/ui/pause_menu.tscn"
 
-[node name="Background" type="TextureRect" parent="." unique_id=261895627]
+[node name="Background" type="VideoStreamPlayer" parent="." unique_id=261895627]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,8 +42,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
+stream = ExtResource("2_video")
+autoplay = true
+expand = true
+loop = true
 
 [node name="Shade" type="ColorRect" parent="." unique_id=1436143690]
 layout_mode = 1
