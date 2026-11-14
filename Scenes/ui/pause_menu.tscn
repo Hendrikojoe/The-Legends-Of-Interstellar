@@ -53,25 +53,25 @@ stretch_mode = 5
 
 [node name="ResumeButton" type="Button" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Lanjutkan"
 
 [node name="RestartButton" type="Button" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Ulangi Bagian Ini"
 
 [node name="MenuButton" type="Button" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Menu Utama"
 
 [node name="QuitButton" type="Button" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Keluar Game"
 

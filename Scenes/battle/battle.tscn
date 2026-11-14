@@ -146,7 +146,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="EnemyPanel" type="PanelContainer" parent="HUD/Layout/TopBar"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 size_flags_vertical = 0
 theme_type_variation = &"HudPanel"
@@ -209,7 +209,7 @@ theme_type_variation = &"ChipViolet"
 
 [node name="EnemyIntent" type="Label" parent="HUD/Layout/TopBar/EnemyPanel/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 0)
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 theme_type_variation = &"InsetLabel"
 horizontal_alignment = 1
@@ -218,6 +218,7 @@ autowrap_mode = 3
 [node name="SpacerR" type="Control" parent="HUD/Layout/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="InfoPanel" type="PanelContainer" parent="HUD/Layout/TopBar"]
 custom_minimum_size = Vector2(250, 0)
@@ -360,13 +361,13 @@ alignment = 1
 
 [node name="DestroyButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/ChoiceContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(190, 54)
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 text = "Hancurkan"
 
 [node name="ForgiveButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/ChoiceContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(190, 54)
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 text = "Maafkan"
 
@@ -378,13 +379,13 @@ alignment = 1
 
 [node name="RestartButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/Actions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 46)
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 text = "Ulangi"
 
 [node name="MenuButton" type="Button" parent="HUD/Overlay/Center/ResultPanel/VBox/Actions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 46)
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 text = "Menu"
 

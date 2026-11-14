@@ -30,7 +30,8 @@ func ask(options: Array, prompt: String = "") -> int:
 	for i in options.size():
 		var button := Button.new()
 		button.text = str(options[i])
-		button.custom_minimum_size = Vector2(0.0, 52.0)
+		button.theme_type_variation = &"ChoiceButton"
+		button.custom_minimum_size = Vector2(0.0, 48.0)
 		button.pressed.connect(_on_option_pressed.bind(i))
 		options_box.add_child(button)
 
